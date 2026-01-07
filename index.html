@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMIÈRE | Threads × AI Portfolio</title>
+    <title>KENSHIRO | Threads × AI Portfolio</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOM -->
@@ -22,12 +22,32 @@
             font-family: 'Noto Serif JP', serif;
         }
         
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .animate-fade-in-up {
           animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .glass-panel {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
     </style>
 </head>
@@ -37,7 +57,7 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        /* --- Icons Components (Inline SVGs to replace Lucide-React) --- */
+        /* --- Icons Components (Inline SVGs) --- */
         const IconWrapper = ({ children, size = 20, className = "" }) => (
             <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {children}
@@ -48,13 +68,15 @@
         const Sun = (props) => <IconWrapper {...props}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></IconWrapper>;
         const ChevronDown = (props) => <IconWrapper {...props}><path d="m6 9 6 6 6-6"/></IconWrapper>;
         const Instagram = (props) => <IconWrapper {...props}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></IconWrapper>;
-        const Twitter = (props) => <IconWrapper {...props}><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></IconWrapper>;
+        const ThreadsIcon = (props) => <IconWrapper {...props}><path d="M12.754 13.93c1.776 0 2.21-1.353 2.164-2.833-.042-1.343-.455-2.072-1.334-2.228-.908-.16-1.57.517-1.57 1.48 0 .825.59 1.502 1.503 1.502.835 0 1.517-.614 1.517-1.482 0-1.72-1.258-3.085-3.033-3.085-1.996 0-3.61 1.536-3.61 3.515 0 1.944 1.535 3.543 3.568 3.543 1.156 0 2.152-.47 2.766-1.25.105.474.343 1.34.42 1.696.53 2.458-1.467 4.195-4.14 4.195-2.738 0-4.63-2.148-4.63-5.013 0-2.887 2.05-5.185 4.92-5.185 2.155 0 3.708 1.196 4.417 2.37.116-.273.28-.62.433-1.025C15.08 7.372 12.793 6 10.05 6 5.61 6 2 9.688 2 14.238c0 4.502 3.655 8.127 8.163 8.127 3.328 0 5.86-1.895 6.666-4.99l.06-.232H14.5c-.53 1.32-2.074 2.39-3.71 2.39-2.316 0-4.175-1.87-4.175-4.223 0-2.313 1.832-4.186 4.14-4.186 1.433 0 2.287.89 2.287 1.884 0 .736-.554 1.144-1.095 1.144-.814 0-1.205-.623-1.205-1.22 0-.306.07-.63.2-.84.236.425.47.887.666 1.31.05.105.093.208.134.31z"/></IconWrapper>;
         const ExternalLink = (props) => <IconWrapper {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></IconWrapper>;
-        const Sparkles = (props) => <IconWrapper {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 3v4"/><path d="M3 5h4"/><path d="M3 9h4"/></IconWrapper>;
+        const Sparkles = (props) => <IconWrapper {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 3v4"/><path d="M3 5h4"/><path d="M3 9h4"/></IconWrapper>;
         const TrendingUp = (props) => <IconWrapper {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></IconWrapper>;
         const BookOpen = (props) => <IconWrapper {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 1-4 4v14a3 3 0 0 0 3-3h7z"/></IconWrapper>;
         const Award = (props) => <IconWrapper {...props}><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></IconWrapper>;
         const ArrowRight = (props) => <IconWrapper {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></IconWrapper>;
+        const Heart = (props) => <IconWrapper {...props}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconWrapper>;
+        const Users = (props) => <IconWrapper {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></IconWrapper>;
 
 
         /* --- Main Application --- */
@@ -87,14 +109,14 @@
           // Color Palette & Styles based on mode
           const theme = darkMode
             ? {
-                bg: 'bg-slate-900',
+                bg: 'bg-[#0f172a]', // Slate 900
                 text: 'text-gray-100',
-                accent: 'text-amber-200',
-                card: 'bg-slate-800/80',
-                subText: 'text-gray-300',
-                border: 'border-amber-700/30',
-                gradient: 'from-slate-900 via-slate-800 to-slate-900',
-                button: 'bg-amber-700 hover:bg-amber-600 text-white',
+                accent: 'text-[#e2b86d]', // Gold
+                card: 'bg-[#1e293b]/80', // Slate 800
+                subText: 'text-gray-400',
+                border: 'border-[#e2b86d]/30',
+                gradient: 'from-[#0f172a] via-[#1e293b] to-[#0f172a]',
+                button: 'bg-[#e2b86d] hover:bg-[#c49d56] text-[#0f172a]',
               }
             : {
                 bg: 'bg-[#FDFBF7]', // Creamy white
@@ -116,10 +138,11 @@
               {/* Navigation */}
               <nav className={`fixed w-full z-50 backdrop-blur-md border-b ${theme.border} transition-colors duration-500`}>
                 <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                  <h1 className={`text-2xl font-bold tracking-widest ${theme.accent}`}>LUMIÈRE</h1>
+                  <h1 className={`text-2xl font-bold tracking-widest ${theme.accent}`}>KENSHIRO</h1>
                   <div className="flex items-center gap-6">
                     <a href="#about" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">STORY</a>
-                    <a href="#contents" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">CONTENTS</a>
+                    <a href="#philosophy" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">PHILOSOPHY</a>
+                    <a href="#works" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">WORKS</a>
                     <button
                       onClick={toggleTheme}
                       className={`p-2 rounded-full transition-all duration-300 ${darkMode ? 'bg-amber-900/20 text-amber-200' : 'bg-gray-100 text-gray-600'}`}
@@ -134,28 +157,34 @@
               {/* Hero Section */}
               <section 
                 id="hero" 
-                className={`relative h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden`}
+                className={`relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-20`}
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} opacity-90 z-0`}></div>
                 <div className={`absolute top-20 left-10 w-64 h-64 rounded-full filter blur-3xl opacity-20 ${darkMode ? 'bg-amber-800' : 'bg-pink-200'}`}></div>
                 <div className={`absolute bottom-20 right-10 w-80 h-80 rounded-full filter blur-3xl opacity-20 ${darkMode ? 'bg-purple-900' : 'bg-amber-100'}`}></div>
 
-                <div className="relative z-10 max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-                  <div className={`inline-block px-4 py-1 border ${theme.border} rounded-full text-xs tracking-[0.2em] mb-4 uppercase`}>
-                    Unlock Your Potential
+                <div className="relative z-10 max-w-4xl mx-auto space-y-8 animate-fade-in-up px-4">
+                  <div className={`inline-block px-6 py-1.5 border ${theme.border} rounded-full text-xs tracking-[0.2em] mb-4 uppercase`}>
+                    Threads × AI Monetization
                   </div>
-                  <h2 className={`text-4xl md:text-6xl lg:text-7xl font-medium leading-tight ${theme.text}`}>
+                  <h2 className={`text-3xl md:text-5xl lg:text-6xl font-medium leading-tight ${theme.text}`}>
                     Threads × AIで<br/>
-                    <span className={`${theme.accent} font-serif italic`}>月10万</span>を安定させる
+                    <span className={`${theme.accent} font-serif italic`}>月10万の柱</span>を安定させる
                   </h2>
                   <p className={`text-sm md:text-lg tracking-wider font-sans mt-6 ${theme.subText} max-w-2xl mx-auto leading-loose`}>
-                    社畜奴隷でもAIと並走して<br className="md:hidden"/>最高月87万超え達成。<br/>
-                    優雅に、賢く、貴方の人生に新しい柱を。
+                    年319日勤務の社畜奴隷でも、<br/>
+                    AIと並走して最高月87万超えを達成。<br/>
+                    <br className="md:hidden"/>
+                    楽しみながら、マイペースに。<br/>
+                    貴方の人生に「安心」という名の新しい柱を。
                   </p>
                   
-                  <div className="pt-10">
-                    <a href="#contents" className={`inline-block px-10 py-4 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 tracking-widest text-sm ${theme.button}`}>
+                  <div className="pt-10 flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="#works" className={`inline-block px-10 py-4 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 tracking-widest text-sm font-bold ${theme.button}`}>
                       View Works
+                    </a>
+                    <a href="https://lin.ee/Hmq3J35" target="_blank" className={`inline-block px-10 py-4 rounded-full border ${theme.border} hover:bg-opacity-10 hover:bg-gray-500 transition-all duration-300 tracking-widest text-sm flex items-center justify-center gap-2`}>
+                      Official LINE
                     </a>
                   </div>
                 </div>
@@ -168,83 +197,123 @@
               {/* About Section */}
               <section id="about" className="py-24 px-6 relative">
                 <div className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center transition-all duration-1000 ${isVisible.about ? visibleClass : hiddenClass}`}>
+                  {/* Image Area */}
                   <div className="relative group">
                     <div className={`absolute inset-0 transform translate-x-4 translate-y-4 border border-current opacity-30 rounded-tl-[4rem] rounded-br-[4rem] transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2 ${theme.accent}`}></div>
-                    <div className={`relative h-[500px] w-full bg-cover bg-center rounded-tl-[4rem] rounded-br-[4rem] shadow-2xl overflow-hidden`} 
-                         style={{backgroundImage: 'url("https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop")'}}>
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500"></div>
+                    <div className={`relative h-[600px] w-full bg-cover bg-center rounded-tl-[4rem] rounded-br-[4rem] shadow-2xl overflow-hidden`} 
+                         style={{backgroundImage: 'url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop")'}}>
+                         {/* Note: Placeholder image fitting a gentleman/lifestyle vibe */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                      <div className="absolute bottom-10 left-10 text-white">
+                         <p className="font-serif italic text-2xl mb-2">Kenshiro</p>
+                         <p className="text-xs tracking-widest opacity-80">Threads × AI Specialist</p>
+                      </div>
                     </div>
                   </div>
 
+                  {/* Text Area */}
                   <div className="space-y-8">
                     <div className="space-y-2">
                       <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>My Story</span>
-                      <h3 className="text-3xl md:text-4xl font-serif">「時間」という<br/>最高の贅沢を手に入れる</h3>
+                      <h3 className="text-3xl md:text-4xl font-serif">どん底から這い上がった<br/>「博多の男」の逆転劇</h3>
                     </div>
                     
-                    <div className={`space-y-6 font-sans leading-loose ${theme.subText}`}>
+                    <div className={`space-y-6 font-sans leading-loose ${theme.subText} text-sm md:text-base`}>
                       <p>
-                        かつては朝から晩まで会社に縛られる、いわゆる「社畜」でした。
-                        自分の時間を切り売りし、疲弊する毎日。
-                        「もっと自分らしく、優雅に生きたい」その一心で出会ったのがAIとThreadsでした。
+                        はじめまして、ケンシロウです。<br/>
+                        かつては店長として年319日働き、理不尽な理由で解雇され、Uber Eatsで日銭を稼ぐ日々でした。<br/>
+                        「おじいちゃんになっても肉体労働は続けられない」<br/>
+                        その焦りからブログを始め、そして運命の出会い「AI × Threads」に辿り着きました。
                       </p>
                       <p>
-                        特別な才能があったわけではありません。
-                        ただ、AIという強力なパートナーと並走することで、
-                        月10万、30万、そして最高月87万という収益を生み出すことができました。
+                        特別な才能があったわけではありません。<br/>
+                        ただ、「脱サラして結婚する」という夢のために、泥臭く継続しただけ。<br/>
+                        正直なところ、稼ぐのは簡単ではありません。でも、<span className={`font-bold border-b ${theme.border}`}>「楽しむこと」</span>を燃料にすれば、誰でも継続できます。
                       </p>
                       <p>
-                        現在は、そのノウハウを体系化し、
-                        「忙しい女性でも品格を保ちながら稼ぐ」方法を発信しています。
-                        貴方の人生にも、新しい収入の柱を建ててみませんか？
+                        「自分には無理かも」と思っている貴方へ。<br/>
+                        僕の経験とノウハウで、貴方が自分らしく輝くための柱を一緒に作りたい。<br/>
+                        博多弁混じりのちょっと暑苦しい男ですが、<br/>
+                        <span className={`${theme.accent} font-bold`}>「信じてついてきてくれる人」</span>は全力で引き上げますよ。
                       </p>
                     </div>
 
                     <div className="flex gap-4 pt-4">
-                      <SocialButton icon={<Twitter size={20}/>} label="Threads" />
-                      <SocialButton icon={<Instagram size={20}/>} label="Instagram" />
+                      <SocialButton icon={<ThreadsIcon size={20}/>} label="Threads" link="https://www.threads.net/@kenshiro_ai.fukugyo" />
+                      <SocialButton icon={<Instagram size={20}/>} label="Instagram" link="#" />
                     </div>
                   </div>
                 </div>
               </section>
 
+              {/* Philosophy Section (New) */}
+              <section id="philosophy" className={`py-20 px-6 ${darkMode ? 'bg-slate-800/30' : 'bg-stone-50'}`}>
+                 <div className="max-w-4xl mx-auto text-center space-y-12">
+                    <div className={`inline-block px-4 py-1 border ${theme.border} rounded-full text-xs tracking-[0.2em] uppercase`}>
+                        Values
+                    </div>
+                    <h3 className="text-3xl md:text-4xl font-serif">大切にしている価値観</h3>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <ValueCard 
+                            icon={<Users size={32} />}
+                            title="仲間との成長"
+                            desc="一人勝ちはつまらない。仲間やフォロワーさんと一緒に成長し、全員で豊かになることを目指します。"
+                            theme={theme}
+                        />
+                         <ValueCard 
+                            icon={<Heart size={32} />}
+                            title="楽しむ努力"
+                            desc="「やらされる」のではなく「楽しむ」。短期の成果も大事ですが、長く続けるためのモチベを最優先に。"
+                            theme={theme}
+                        />
+                         <ValueCard 
+                            icon={<TrendingUp size={32} />}
+                            title="長期目線"
+                            desc="2〜3年後に会社員の給料を作る。焦らず、地に足をつけて、着実に未来の柱を築き上げます。"
+                            theme={theme}
+                        />
+                    </div>
+                 </div>
+              </section>
+
               {/* Trajectory (History) Section */}
-              <section id="trajectory" className={`py-24 px-6 ${darkMode ? 'bg-slate-800/50' : 'bg-stone-50'}`}>
+              <section id="trajectory" className={`py-24 px-6 relative`}>
                 <div className="max-w-4xl mx-auto">
                   <div className="text-center mb-16 space-y-4">
                     <h3 className="text-3xl font-serif">Trajectory</h3>
-                    <p className={`text-sm tracking-widest ${theme.subText}`}>これまでの軌跡</p>
+                    <p className={`text-sm tracking-widest ${theme.subText}`}>社畜奴隷からの軌跡</p>
                   </div>
 
                   <div className={`relative border-l-2 ${theme.border} ml-6 md:ml-0 space-y-12`}>
                     <TimelineItem 
-                      year="2022" 
-                      title="会社員としての限界" 
-                      desc="残業月80時間超え。心身ともに疲弊し、副業を模索し始める。"
+                      year="The Dark Times" 
+                      title="社畜奴隷時代〜理不尽な解雇" 
+                      desc="年319日勤務、ストレスで腸炎発症。さらに副社長の嘘により店長職を解雇される。人間関係と会社組織に絶望し、Uber Eatsで食いつなぐ。"
                       icon={<BookOpen size={20} />}
                       theme={theme}
                       isVisible={isVisible.trajectory}
                     />
                     <TimelineItem 
-                      year="2023.04" 
-                      title="AI × Threads との出会い" 
-                      desc="文章作成が苦手でもAIを使えば発信できることに気づく。毎日投稿を開始。"
+                      year="Turning Point" 
+                      title="カフェ店長＆ブログへの挑戦" 
+                      desc="将来への不安から「資産になる労働」を模索しSEOブログを開始。今の奥さんとの出会いもあり、「脱サラ・結婚」という明確な目標ができる。"
                       icon={<Sparkles size={20} />}
                       theme={theme}
                       isVisible={isVisible.trajectory}
                     />
                     <TimelineItem 
                       year="2023.10" 
-                      title="月収10万円達成" 
-                      desc="独自の世界観が評価され、アフィリエイト報酬が安定化。0→1を達成。"
-                      icon={<TrendingUp size={20} />}
+                      title="Threads × AI 覚醒" 
+                      desc="ブログからThreadsへピボット。AIを活用し始めてから感覚を掴み、3日連続マンバズを達成。月5万の安定化に成功。"
+                      icon={<ThreadsIcon size={20} />}
                       theme={theme}
                       isVisible={isVisible.trajectory}
                     />
                     <TimelineItem 
-                      year="Current" 
-                      title="最高月収87万円超え" 
-                      desc="コンテンツ販売を開始。多くの生徒さんにノウハウを還元中。"
+                      year="Success" 
+                      title="コンテンツ販売で120万達成" 
+                      desc="『AITHRAISE』『NOTERAISE』のローンチで爆発的な成果。開始43日で120万。現在は「仕組み化」を進め、仲間への還元に注力中。"
                       icon={<Award size={20} />}
                       theme={theme}
                       isVisible={isVisible.trajectory}
@@ -253,68 +322,76 @@
                 </div>
               </section>
 
-              {/* My Contents Section */}
-              <section id="contents" className="py-24 px-6">
+              {/* Works / Contents Section */}
+              <section id="works" className="py-24 px-6">
                 <div className="max-w-7xl mx-auto">
                   <div className="text-center mb-16 space-y-4">
                     <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>Original Works</span>
                     <h3 className="text-3xl md:text-4xl font-serif">My Contents</h3>
-                    <p className={`text-sm ${theme.subText}`}>私の知識と経験を凝縮したコンテンツ</p>
+                    <p className={`text-sm ${theme.subText}`}>私の知識と経験を凝縮した、人生を変える武器たち</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {/* AITHRAISE */}
                     <ContentCard 
-                      title="Threads × AI マネタイズの教科書"
-                      category="Brain / Note"
-                      desc="初心者でも初月から収益化を目指せる、具体的なプロンプトと運用フローを完全解説。"
-                      image="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070&auto=format&fit=crop"
+                      title="Threads×note攻略『AITHRAISE』"
+                      category="Best Seller"
+                      desc="【GPTs30個超収録】大手エンジニアとの共作。開始14日で成果報告14名以上。アカウント設計から商品作成までを完全並走サポート。"
+                      image="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop"
+                      link="https://brain-market.com/u/hokuto88/a/byIjMyIjMgoTZsNWa0JXY"
                       theme={theme}
                       delay="0"
-                      isVisible={isVisible.contents}
+                      isVisible={isVisible.works}
                     />
+                    
+                    {/* ShinThreads (Affiliate/Recommended) */}
                     <ContentCard 
-                      title="【悪用厳禁】魅了する文章術"
-                      category="Tips"
-                      desc="AIっぽさを消し、読み手の感情を揺さぶるライティングテクニック集。"
-                      image="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1973&auto=format&fit=crop"
+                      title="シンスレッズ攻略"
+                      category="Highly Recommended"
+                      desc="Threadsで成果を出している人で持っていない人はゼロ。講座級のノウハウをインプットし、迷いなく進むためのバイブル。"
+                      image="https://images.unsplash.com/photo-1555421689-49178386ad8e?q=80&w=2070&auto=format&fit=crop"
+                      link="https://kenshiro-sidejob.site/new-threads/"
                       theme={theme}
                       delay="200"
-                      isVisible={isVisible.contents}
+                      isVisible={isVisible.works}
                     />
+
+                    {/* Official LINE / OpenChat */}
                     <ContentCard 
-                      title="0→1突破 個別コンサルティング"
-                      category="Consulting"
-                      desc="あなたの強みを発掘し、オーダーメイドの収益化ロードマップを作成します。"
-                      image="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?q=80&w=2069&auto=format&fit=crop"
+                      title="禁断の無料オプチャ"
+                      category="Community"
+                      desc="【退会したら二度と入れません】追ってくれる人を贔屓するための聖域。先行販売や有益情報をこっそりお届けします。"
+                      image="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2069&auto=format&fit=crop"
+                      link="https://lin.ee/Hmq3J35"
                       theme={theme}
                       delay="400"
-                      isVisible={isVisible.contents}
+                      isVisible={isVisible.works}
                     />
                   </div>
                 </div>
               </section>
 
-              {/* Recommended Section */}
+              {/* Recommended Tools Section */}
               <section id="recommended" className={`py-24 px-6 ${darkMode ? 'bg-slate-900' : 'bg-[#F9F7F2]'}`}>
                 <div className="max-w-6xl mx-auto">
                    <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b pb-4 border-gray-200 dark:border-gray-700">
                     <div className="space-y-2">
-                      <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>Selection</span>
-                      <h3 className="text-3xl font-serif">Recommended</h3>
+                      <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>Essentials</span>
+                      <h3 className="text-3xl font-serif">Recommended Tools</h3>
                     </div>
-                    <p className={`text-sm mt-4 md:mt-0 ${theme.subText}`}>私が自信を持っておすすめするツール・教材</p>
+                    <p className={`text-sm mt-4 md:mt-0 ${theme.subText}`}>効率化とクオリティアップに欠かせない相棒</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <RecommendationItem 
-                      title="AIライティングツール「Claude 3」"
-                      desc="自然な日本語生成において最強のAI。私の投稿作成の9割はこれを使用しています。"
-                      tag="Tool"
+                      title="AIライティング「Claude 3」"
+                      desc="自然な日本語生成において最強のAI。僕の発信の9割はこれ。社畜でも時短で高品質な投稿を作る必須ツール。"
+                      tag="Writing"
                       theme={theme}
                     />
                      <RecommendationItem 
                       title="画像生成AI「Midjourney」"
-                      desc="高貴な世界観を作るための画像素材はこれで作れます。プロンプト集も配布中。"
+                      desc="このサイトのような高貴な世界観も、親しみやすいアイコンもこれで作れます。視覚情報はThreadsで超重要。"
                       tag="Creative"
                       theme={theme}
                     />
@@ -325,26 +402,39 @@
               {/* Footer */}
               <footer className={`py-12 px-6 border-t ${theme.border} text-center`}>
                 <div className="max-w-4xl mx-auto space-y-8">
-                  <h2 className={`text-2xl font-bold tracking-widest ${theme.accent}`}>LUMIÈRE</h2>
+                  <h2 className={`text-2xl font-bold tracking-widest ${theme.accent}`}>KENSHIRO</h2>
                   <div className="flex justify-center gap-8">
-                    <a href="#" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>THREADS</a>
-                    <a href="#" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>TWITTER</a>
+                    <a href="https://www.threads.net/@kenshiro_ai.fukugyo" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>THREADS</a>
+                    <a href="https://lin.ee/Hmq3J35" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>LINE</a>
                     <a href="#" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>NOTE</a>
                   </div>
-                  <p className={`text-xs ${theme.subText} tracking-wider`}>
-                    © 2024 Lumière Portfolio. All Rights Reserved.
-                  </p>
+                  <div className={`text-xs ${theme.subText} space-y-2`}>
+                      <p>脱サラ結婚を目指す貴公子 | Threads×AI Monetization</p>
+                      <p>© 2024 Kenshiro Portfolio. All Rights Reserved.</p>
+                  </div>
                 </div>
               </footer>
             </div>
           );
         };
 
-        const SocialButton = ({ icon, label }) => (
-          <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 text-sm tracking-wider">
+        /* --- Sub Components --- */
+
+        const SocialButton = ({ icon, label, link }) => (
+          <a href={link} target="_blank" className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 text-sm tracking-wider">
             {icon}
             <span>{label}</span>
-          </button>
+          </a>
+        );
+
+        const ValueCard = ({ icon, title, desc, theme }) => (
+            <div className={`p-8 rounded-xl ${theme.card} border ${theme.border} text-center space-y-4 hover:-translate-y-1 transition-transform duration-300`}>
+                <div className={`inline-flex p-3 rounded-full ${theme.bg} ${theme.accent} mb-2`}>
+                    {icon}
+                </div>
+                <h4 className={`text-xl font-medium ${theme.text}`}>{title}</h4>
+                <p className={`text-sm leading-relaxed ${theme.subText}`}>{desc}</p>
+            </div>
         );
 
         const TimelineItem = ({ year, title, desc, icon, theme, isVisible }) => (
@@ -353,7 +443,7 @@
               <div className={`w-2 h-2 rounded-full ${theme.accent.replace('text-', 'bg-')}`}></div>
             </div>
             <div className="flex flex-col md:flex-row gap-4 md:items-start group">
-              <div className={`min-w-[100px] font-serif italic text-lg ${theme.accent}`}>{year}</div>
+              <div className={`min-w-[120px] font-serif italic text-lg ${theme.accent}`}>{year}</div>
               <div className="space-y-2 pb-12">
                 <div className="flex items-center gap-2">
                   <span className={`${theme.subText} opacity-70`}>{icon}</span>
@@ -365,9 +455,9 @@
           </div>
         );
 
-        const ContentCard = ({ title, category, desc, image, theme, delay, isVisible }) => (
-          <div 
-            className={`group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-1000 ${theme.card} hover:-translate-y-2`}
+        const ContentCard = ({ title, category, desc, image, link, theme, delay, isVisible }) => (
+          <a href={link} target="_blank"
+            className={`group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-1000 ${theme.card} hover:-translate-y-2 block`}
             style={{ transitionDelay: `${delay}ms`, opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(20px)' }}
           >
             <div className="h-48 overflow-hidden">
@@ -378,10 +468,10 @@
               <h4 className={`text-xl font-serif ${theme.text}`}>{title}</h4>
               <p className={`text-sm leading-relaxed ${theme.subText}`}>{desc}</p>
               <div className="pt-4 flex items-center gap-2 text-sm font-medium cursor-pointer hover:opacity-70 transition-opacity">
-                Read More <ArrowRight size={16} />
+                Check Details <ArrowRight size={16} />
               </div>
             </div>
-          </div>
+          </a>
         );
 
         const RecommendationItem = ({ title, desc, tag, theme }) => (
