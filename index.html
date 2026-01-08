@@ -329,7 +329,7 @@
         );
 
         const ContentCard = ({ number, title, desc, image, link, note, aspectRatio = "aspect-video" }) => (
-            <a href={link} target="_blank" className="group block relative fade-in min-w-[85vw] md:min-w-0 snap-center">
+            <a href={link} target="_blank" className="group block relative fade-in w-full">
                 <div className={`img-mask-container ${aspectRatio} mb-6 w-full flex items-center justify-center bg-[#1a1a1a]`}>
                     <div className="img-mask-overlay"></div>
                     <img src={image} alt={title} className="img-mask-img object-contain" />
@@ -505,14 +505,14 @@
                         <div className="max-w-[1200px] mx-auto">
                             <SectionHeading number="01" title="My Contents" subtitle="～私の知識と経験を凝縮した、人生を変える武器たち～" />
 
-                            <div className="flex overflow-x-auto snap-x-mandatory hide-scrollbar gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-x-8 md:gap-y-16 pb-8 md:pb-0">
+                            <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3 md:gap-x-8 md:gap-y-16">
                                 <ContentCard 
                                     number="01"
                                     title="Threads×note攻略『AITHRAISE』"
                                     desc="【購入者様：4ヶ月で50万達成】大手エンジニアとの共作。開始14日で成果報告14名以上。30個以上のGPTsが完全並走サポート"
                                     image="https://github.com/user-attachments/assets/a9a94028-2d85-4d37-9c32-e0ec2df533cf"
                                     link="https://brain-market.com/u/hokuto88/a/byIjMyIjMgoTZsNWa0JXY"
-                                    
+                                
                                     aspectRatio="aspect-video"
                                 />
                                 <ContentCard 
@@ -521,7 +521,7 @@
                                     desc="孤独な作業を終わらせる、熱量の高い仲間との環境。挫折させない仕組みと基準値を高め合う場所で、楽しみながら成果への最短ルートを走り抜ける。"
                                     image="https://github.com/user-attachments/assets/9268ab48-d727-4b8a-bc82-d1c89abaefa4"
                                     link="https://note.com/kenshiro0909/n/n22e97c1439c6"
-                                    
+                                
                                     aspectRatio="aspect-video"
                                 />
                                 <ContentCard 
@@ -530,7 +530,7 @@
                                     desc="CANVA×AIでサムネを思いのままに！noteが売れないのはサムネが原因"
                                     image="https://github.com/user-attachments/assets/43b0863a-69fd-4ca4-b222-5fb650c1afcf"
                                     link="https://brain-market.com/u/hokuto88/a/b2EzN1IjMgoTZsNWa0JXY" 
-                                    
+                                
                                     aspectRatio="aspect-video"
                                   />
                             </div>
@@ -561,7 +561,6 @@
                                             desc="Threadsで成果を出している人で持っていない人はゼロ。講座級のノウハウ。"
                                             image="https://github.com/user-attachments/assets/7ece8087-937b-4f9c-bc51-e86b89544eb3"
                                             link="https://kenshiro-sidejob.site/new-threads/"
-                                            
                                             aspectRatio="aspect-video"
                                         />
                                     </div>
@@ -595,7 +594,8 @@
                                         </h3>
                                         <p className="font-sans text-sm leading-8 opacity-70">
                                             はじめまして、ケンシロウです。<br/>
-                                            僕の人生は、順風満帆とは程遠いものでした。店長として懸命に働いた職場からの理不尽な解雇。失意の中、Uber Eatsでひたすらペダルを漕ぎ、日銭を稼ぐ日々。
+                                            僕の人生は、順風満帆とは程遠いものでした。店長として懸命に働いた職場からの理不尽な解雇。<br/>
+                                            失意の中、Uber Eatsでひたすらペダルを漕ぎ、日銭を稼ぐ日々。
                                         </p>
                                         <p className="font-sans text-sm leading-8 opacity-70">
                                             その後、ご縁がありカフェ店長となりますが、お店は失敗。<br/>
