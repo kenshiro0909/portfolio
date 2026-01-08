@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KENSHIRO | Threads × AI Portfolio</title>
+    <title>Kenshiro Portfolio | Threads × AI</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- React & ReactDOM -->
@@ -12,483 +12,606 @@
     <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Jost:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        en: ['"Jost"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            black: '#121212',
+                            dark: '#1a1a1a',
+                            gold: '#c4a661',
+                            lightGold: '#e6cf8b',
+                            gray: '#888888',
+                            lightGray: '#f5f5f5',
+                            white: '#ffffff'
+                        }
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                    },
+                    transitionTimingFunction: {
+                        'out-expo': 'cubic-bezier(0.19, 1, 0.22, 1)',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;500&display=swap');
-        
         body {
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-        h1, h2, h3, h4, .font-serif {
-            font-family: 'Noto Serif JP', serif;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
+            font-feature-settings: "palt";
+            -webkit-font-smoothing: antialiased;
+            letter-spacing: 0.05em;
+            overflow-x: hidden;
+            cursor: none; /* Hide default cursor for custom one */
         }
 
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
+        /* Custom Cursor */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
         }
-        .animate-fade-in-up {
-          animation: fadeInUp 1s ease-out forwards;
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #c4a661;
         }
-        
-        .glass-panel {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(196, 166, 97, 0.5);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+        body.hovering .cursor-outline {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(196, 166, 97, 0.1);
+            border-color: #c4a661;
+        }
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c4a661;
+        }
+
+        ::selection {
+            background: #c4a661;
+            color: #fff;
+        }
+
+        /* Reveal Animations */
+        .reveal-text {
+            clip-path: inset(0 0 100% 0);
+            transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .reveal-text.visible {
+            clip-path: inset(0 0 0 0);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Mask Animation */
+        .img-mask-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .img-mask-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #c4a661;
+            z-index: 2;
+            transform: scaleY(1);
+            transform-origin: bottom;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .img-mask-container.visible .img-mask-overlay {
+            transform: scaleY(0);
+            transform-origin: top;
+        }
+        .img-mask-img {
+            transform: scale(1.1);
+            transition: transform 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .img-mask-container.visible .img-mask-img {
+            transform: scale(1);
+        }
+        .img-mask-container:hover .img-mask-img {
+            transform: scale(1.05);
+        }
+
+        /* Loader */
+        .loader-overlay {
+            position: fixed;
+            inset: 0;
+            background: #121212;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        .loader-overlay.hidden {
+            transform: translateY(-100%);
         }
     </style>
 </head>
-<body>
+<body class="bg-brand-white dark:bg-brand-black text-brand-black dark:text-brand-white transition-colors duration-500">
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React;
 
-        /* --- Icons Components (Inline SVGs) --- */
-        const IconWrapper = ({ children, size = 20, className = "" }) => (
-            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+        /* --- Icons --- */
+        const Icon = ({ children, size = 24, className = "" }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
                 {children}
             </svg>
         );
+        const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
+        const Moon = (props) => <Icon {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></Icon>;
+        const Sun = (props) => <Icon {...props}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></Icon>;
+        
+        /* --- Custom Cursor Component --- */
+        const CustomCursor = () => {
+            const dotRef = useRef(null);
+            const outlineRef = useRef(null);
 
-        const Moon = (props) => <IconWrapper {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></IconWrapper>;
-        const Sun = (props) => <IconWrapper {...props}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></IconWrapper>;
-        const ChevronDown = (props) => <IconWrapper {...props}><path d="m6 9 6 6 6-6"/></IconWrapper>;
-        const Instagram = (props) => <IconWrapper {...props}><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></IconWrapper>;
-        const ThreadsIcon = (props) => <IconWrapper {...props}><path d="M12.754 13.93c1.776 0 2.21-1.353 2.164-2.833-.042-1.343-.455-2.072-1.334-2.228-.908-.16-1.57.517-1.57 1.48 0 .825.59 1.502 1.503 1.502.835 0 1.517-.614 1.517-1.482 0-1.72-1.258-3.085-3.033-3.085-1.996 0-3.61 1.536-3.61 3.515 0 1.944 1.535 3.543 3.568 3.543 1.156 0 2.152-.47 2.766-1.25.105.474.343 1.34.42 1.696.53 2.458-1.467 4.195-4.14 4.195-2.738 0-4.63-2.148-4.63-5.013 0-2.887 2.05-5.185 4.92-5.185 2.155 0 3.708 1.196 4.417 2.37.116-.273.28-.62.433-1.025C15.08 7.372 12.793 6 10.05 6 5.61 6 2 9.688 2 14.238c0 4.502 3.655 8.127 8.163 8.127 3.328 0 5.86-1.895 6.666-4.99l.06-.232H14.5c-.53 1.32-2.074 2.39-3.71 2.39-2.316 0-4.175-1.87-4.175-4.223 0-2.313 1.832-4.186 4.14-4.186 1.433 0 2.287.89 2.287 1.884 0 .736-.554 1.144-1.095 1.144-.814 0-1.205-.623-1.205-1.22 0-.306.07-.63.2-.84.236.425.47.887.666 1.31.05.105.093.208.134.31z"/></IconWrapper>;
-        const ExternalLink = (props) => <IconWrapper {...props}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></IconWrapper>;
-        const Sparkles = (props) => <IconWrapper {...props}><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M9 3v4"/><path d="M3 5h4"/><path d="M3 9h4"/></IconWrapper>;
-        const TrendingUp = (props) => <IconWrapper {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></IconWrapper>;
-        const BookOpen = (props) => <IconWrapper {...props}><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 1-4 4v14a3 3 0 0 0 3-3h7z"/></IconWrapper>;
-        const Award = (props) => <IconWrapper {...props}><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></IconWrapper>;
-        const ArrowRight = (props) => <IconWrapper {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></IconWrapper>;
-        const Heart = (props) => <IconWrapper {...props}><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></IconWrapper>;
-        const Users = (props) => <IconWrapper {...props}><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></IconWrapper>;
+            useEffect(() => {
+                const moveCursor = (e) => {
+                    const { clientX, clientY } = e;
+                    if (dotRef.current) {
+                        dotRef.current.style.left = `${clientX}px`;
+                        dotRef.current.style.top = `${clientY}px`;
+                    }
+                    if (outlineRef.current) {
+                        outlineRef.current.animate({
+                            left: `${clientX}px`,
+                            top: `${clientY}px`
+                        }, { duration: 500, fill: "forwards" });
+                    }
+                };
 
+                const handleHoverStart = () => document.body.classList.add('hovering');
+                const handleHoverEnd = () => document.body.classList.remove('hovering');
 
-        /* --- Main Application --- */
-        const Portfolio = () => {
-          const [darkMode, setDarkMode] = useState(false);
-          const [isVisible, setIsVisible] = useState({});
-
-          useEffect(() => {
-            const observer = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    setIsVisible((prev) => ({ ...prev, [entry.target.id]: true }));
-                  }
+                window.addEventListener('mousemove', moveCursor);
+                
+                const hoverables = document.querySelectorAll('a, button, .hover-target');
+                hoverables.forEach(el => {
+                    el.addEventListener('mouseenter', handleHoverStart);
+                    el.addEventListener('mouseleave', handleHoverEnd);
                 });
-              },
-              { threshold: 0.1 }
+
+                return () => {
+                    window.removeEventListener('mousemove', moveCursor);
+                    hoverables.forEach(el => {
+                        el.removeEventListener('mouseenter', handleHoverStart);
+                        el.removeEventListener('mouseleave', handleHoverEnd);
+                    });
+                };
+            }, []);
+
+            return (
+                <>
+                    <div ref={dotRef} className="cursor-dot hidden md:block"></div>
+                    <div ref={outlineRef} className="cursor-outline hidden md:block"></div>
+                </>
             );
-
-            const sections = document.querySelectorAll('section');
-            sections.forEach((section) => observer.observe(section));
-
-            return () => sections.forEach((section) => observer.unobserve(section));
-          }, []);
-
-          const toggleTheme = () => {
-            setDarkMode(!darkMode);
-          };
-
-          // Color Palette & Styles based on mode
-          const theme = darkMode
-            ? {
-                bg: 'bg-[#0f172a]', // Slate 900
-                text: 'text-gray-100',
-                accent: 'text-[#e2b86d]', // Gold
-                card: 'bg-[#1e293b]/80', // Slate 800
-                subText: 'text-gray-400',
-                border: 'border-[#e2b86d]/30',
-                gradient: 'from-[#0f172a] via-[#1e293b] to-[#0f172a]',
-                button: 'bg-[#e2b86d] hover:bg-[#c49d56] text-[#0f172a]',
-              }
-            : {
-                bg: 'bg-[#FDFBF7]', // Creamy white
-                text: 'text-[#4A4A4A]', // Dark gray
-                accent: 'text-[#BFA181]', // Muted Gold/Beige
-                card: 'bg-white/80',
-                subText: 'text-[#7A7A7A]',
-                border: 'border-[#E3D5C5]',
-                gradient: 'from-[#FDFBF7] via-[#FFF5E6] to-[#FDFBF7]',
-                button: 'bg-[#BFA181] hover:bg-[#A88B6A] text-white',
-              };
-
-          const visibleClass = "opacity-100 translate-y-0";
-          const hiddenClass = "opacity-0 translate-y-10";
-
-          return (
-            <div className={`min-h-screen transition-colors duration-500 font-serif ${theme.bg} ${theme.text}`}>
-              
-              {/* Navigation */}
-              <nav className={`fixed w-full z-50 backdrop-blur-md border-b ${theme.border} transition-colors duration-500`}>
-                <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                  <h1 className={`text-2xl font-bold tracking-widest ${theme.accent}`}>KENSHIRO</h1>
-                  <div className="flex items-center gap-6">
-                    <a href="#about" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">STORY</a>
-                    <a href="#philosophy" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">PHILOSOPHY</a>
-                    <a href="#works" className="hidden md:block hover:opacity-70 transition-opacity text-sm tracking-widest">WORKS</a>
-                    <button
-                      onClick={toggleTheme}
-                      className={`p-2 rounded-full transition-all duration-300 ${darkMode ? 'bg-amber-900/20 text-amber-200' : 'bg-gray-100 text-gray-600'}`}
-                      aria-label="Toggle Theme"
-                    >
-                      {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-                    </button>
-                  </div>
-                </div>
-              </nav>
-
-              {/* Hero Section */}
-              <section 
-                id="hero" 
-                className={`relative min-h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-20`}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${theme.gradient} opacity-90 z-0`}></div>
-                <div className={`absolute top-20 left-10 w-64 h-64 rounded-full filter blur-3xl opacity-20 ${darkMode ? 'bg-amber-800' : 'bg-pink-200'}`}></div>
-                <div className={`absolute bottom-20 right-10 w-80 h-80 rounded-full filter blur-3xl opacity-20 ${darkMode ? 'bg-purple-900' : 'bg-amber-100'}`}></div>
-
-                <div className="relative z-10 max-w-4xl mx-auto space-y-8 animate-fade-in-up px-4">
-                  <div className={`inline-block px-6 py-1.5 border ${theme.border} rounded-full text-xs tracking-[0.2em] mb-4 uppercase`}>
-                    Threads × AI Monetization
-                  </div>
-                  <h2 className={`text-3xl md:text-5xl lg:text-6xl font-medium leading-tight ${theme.text}`}>
-                    Threads × AIで<br/>
-                    <span className={`${theme.accent} font-serif italic`}>月10万の柱</span>を安定させる
-                  </h2>
-                  <p className={`text-sm md:text-lg tracking-wider font-sans mt-6 ${theme.subText} max-w-2xl mx-auto leading-loose`}>
-                    年319日勤務の社畜奴隷でも、<br/>
-                    AIと並走して最高月87万超えを達成。<br/>
-                    <br className="md:hidden"/>
-                    楽しみながら、マイペースに。<br/>
-                    貴方の人生に「安心」という名の新しい柱を。
-                  </p>
-                  
-                  <div className="pt-10 flex flex-col md:flex-row gap-4 justify-center">
-                    <a href="#works" className={`inline-block px-10 py-4 rounded-full shadow-xl transition-all duration-300 transform hover:scale-105 tracking-widest text-sm font-bold ${theme.button}`}>
-                      View Works
-                    </a>
-                    <a href="https://lin.ee/Hmq3J35" target="_blank" className={`inline-block px-10 py-4 rounded-full border ${theme.border} hover:bg-opacity-10 hover:bg-gray-500 transition-all duration-300 tracking-widest text-sm flex items-center justify-center gap-2`}>
-                      Official LINE
-                    </a>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce opacity-50">
-                  <ChevronDown size={30} />
-                </div>
-              </section>
-
-              {/* About Section */}
-              <section id="about" className="py-24 px-6 relative">
-                <div className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center transition-all duration-1000 ${isVisible.about ? visibleClass : hiddenClass}`}>
-                  {/* Image Area */}
-                  <div className="relative group">
-                    <div className={`absolute inset-0 transform translate-x-4 translate-y-4 border border-current opacity-30 rounded-tl-[4rem] rounded-br-[4rem] transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2 ${theme.accent}`}></div>
-                    <div className={`relative h-[600px] w-full bg-cover bg-center rounded-tl-[4rem] rounded-br-[4rem] shadow-2xl overflow-hidden`} 
-                         style={{backgroundImage: 'url("https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop")'}}>
-                         {/* Note: Placeholder image fitting a gentleman/lifestyle vibe */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute bottom-10 left-10 text-white">
-                         <p className="font-serif italic text-2xl mb-2">Kenshiro</p>
-                         <p className="text-xs tracking-widest opacity-80">Threads × AI Specialist</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Text Area */}
-                  <div className="space-y-8">
-                    <div className="space-y-2">
-                      <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>My Story</span>
-                      <h3 className="text-3xl md:text-4xl font-serif">どん底から這い上がった<br/>「博多の男」の逆転劇</h3>
-                    </div>
-                    
-                    <div className={`space-y-6 font-sans leading-loose ${theme.subText} text-sm md:text-base`}>
-                      <p>
-                        はじめまして、ケンシロウです。<br/>
-                        かつては店長として年319日働き、理不尽な理由で解雇され、Uber Eatsで日銭を稼ぐ日々でした。<br/>
-                        「おじいちゃんになっても肉体労働は続けられない」<br/>
-                        その焦りからブログを始め、そして運命の出会い「AI × Threads」に辿り着きました。
-                      </p>
-                      <p>
-                        特別な才能があったわけではありません。<br/>
-                        ただ、「脱サラして結婚する」という夢のために、泥臭く継続しただけ。<br/>
-                        正直なところ、稼ぐのは簡単ではありません。でも、<span className={`font-bold border-b ${theme.border}`}>「楽しむこと」</span>を燃料にすれば、誰でも継続できます。
-                      </p>
-                      <p>
-                        「自分には無理かも」と思っている貴方へ。<br/>
-                        僕の経験とノウハウで、貴方が自分らしく輝くための柱を一緒に作りたい。<br/>
-                        博多弁混じりのちょっと暑苦しい男ですが、<br/>
-                        <span className={`${theme.accent} font-bold`}>「信じてついてきてくれる人」</span>は全力で引き上げますよ。
-                      </p>
-                    </div>
-
-                    <div className="flex gap-4 pt-4">
-                      <SocialButton icon={<ThreadsIcon size={20}/>} label="Threads" link="https://www.threads.net/@kenshiro_ai.fukugyo" />
-                      <SocialButton icon={<Instagram size={20}/>} label="Instagram" link="#" />
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              {/* Philosophy Section (New) */}
-              <section id="philosophy" className={`py-20 px-6 ${darkMode ? 'bg-slate-800/30' : 'bg-stone-50'}`}>
-                 <div className="max-w-4xl mx-auto text-center space-y-12">
-                    <div className={`inline-block px-4 py-1 border ${theme.border} rounded-full text-xs tracking-[0.2em] uppercase`}>
-                        Values
-                    </div>
-                    <h3 className="text-3xl md:text-4xl font-serif">大切にしている価値観</h3>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <ValueCard 
-                            icon={<Users size={32} />}
-                            title="仲間との成長"
-                            desc="一人勝ちはつまらない。仲間やフォロワーさんと一緒に成長し、全員で豊かになることを目指します。"
-                            theme={theme}
-                        />
-                         <ValueCard 
-                            icon={<Heart size={32} />}
-                            title="楽しむ努力"
-                            desc="「やらされる」のではなく「楽しむ」。短期の成果も大事ですが、長く続けるためのモチベを最優先に。"
-                            theme={theme}
-                        />
-                         <ValueCard 
-                            icon={<TrendingUp size={32} />}
-                            title="長期目線"
-                            desc="2〜3年後に会社員の給料を作る。焦らず、地に足をつけて、着実に未来の柱を築き上げます。"
-                            theme={theme}
-                        />
-                    </div>
-                 </div>
-              </section>
-
-              {/* Trajectory (History) Section */}
-              <section id="trajectory" className={`py-24 px-6 relative`}>
-                <div className="max-w-4xl mx-auto">
-                  <div className="text-center mb-16 space-y-4">
-                    <h3 className="text-3xl font-serif">Trajectory</h3>
-                    <p className={`text-sm tracking-widest ${theme.subText}`}>社畜奴隷からの軌跡</p>
-                  </div>
-
-                  <div className={`relative border-l-2 ${theme.border} ml-6 md:ml-0 space-y-12`}>
-                    <TimelineItem 
-                      year="The Dark Times" 
-                      title="社畜奴隷時代〜理不尽な解雇" 
-                      desc="年319日勤務、ストレスで腸炎発症。さらに副社長の嘘により店長職を解雇される。人間関係と会社組織に絶望し、Uber Eatsで食いつなぐ。"
-                      icon={<BookOpen size={20} />}
-                      theme={theme}
-                      isVisible={isVisible.trajectory}
-                    />
-                    <TimelineItem 
-                      year="Turning Point" 
-                      title="カフェ店長＆ブログへの挑戦" 
-                      desc="将来への不安から「資産になる労働」を模索しSEOブログを開始。今の奥さんとの出会いもあり、「脱サラ・結婚」という明確な目標ができる。"
-                      icon={<Sparkles size={20} />}
-                      theme={theme}
-                      isVisible={isVisible.trajectory}
-                    />
-                    <TimelineItem 
-                      year="2023.10" 
-                      title="Threads × AI 覚醒" 
-                      desc="ブログからThreadsへピボット。AIを活用し始めてから感覚を掴み、3日連続マンバズを達成。月5万の安定化に成功。"
-                      icon={<ThreadsIcon size={20} />}
-                      theme={theme}
-                      isVisible={isVisible.trajectory}
-                    />
-                    <TimelineItem 
-                      year="Success" 
-                      title="コンテンツ販売で120万達成" 
-                      desc="『AITHRAISE』『NOTERAISE』のローンチで爆発的な成果。開始43日で120万。現在は「仕組み化」を進め、仲間への還元に注力中。"
-                      icon={<Award size={20} />}
-                      theme={theme}
-                      isVisible={isVisible.trajectory}
-                    />
-                  </div>
-                </div>
-              </section>
-
-              {/* Works / Contents Section */}
-              <section id="works" className="py-24 px-6">
-                <div className="max-w-7xl mx-auto">
-                  <div className="text-center mb-16 space-y-4">
-                    <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>Original Works</span>
-                    <h3 className="text-3xl md:text-4xl font-serif">My Contents</h3>
-                    <p className={`text-sm ${theme.subText}`}>私の知識と経験を凝縮した、人生を変える武器たち</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {/* AITHRAISE */}
-                    <ContentCard 
-                      title="Threads×note攻略『AITHRAISE』"
-                      category="Best Seller"
-                      desc="【GPTs30個超収録】大手エンジニアとの共作。開始14日で成果報告14名以上。アカウント設計から商品作成までを完全並走サポート。"
-                      image="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop"
-                      link="https://brain-market.com/u/hokuto88/a/byIjMyIjMgoTZsNWa0JXY"
-                      theme={theme}
-                      delay="0"
-                      isVisible={isVisible.works}
-                    />
-                    
-                    {/* ShinThreads (Affiliate/Recommended) */}
-                    <ContentCard 
-                      title="シンスレッズ攻略"
-                      category="Highly Recommended"
-                      desc="Threadsで成果を出している人で持っていない人はゼロ。講座級のノウハウをインプットし、迷いなく進むためのバイブル。"
-                      image="https://images.unsplash.com/photo-1555421689-49178386ad8e?q=80&w=2070&auto=format&fit=crop"
-                      link="https://kenshiro-sidejob.site/new-threads/"
-                      theme={theme}
-                      delay="200"
-                      isVisible={isVisible.works}
-                    />
-
-                    {/* Official LINE / OpenChat */}
-                    <ContentCard 
-                      title="禁断の無料オプチャ"
-                      category="Community"
-                      desc="【退会したら二度と入れません】追ってくれる人を贔屓するための聖域。先行販売や有益情報をこっそりお届けします。"
-                      image="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2069&auto=format&fit=crop"
-                      link="https://lin.ee/Hmq3J35"
-                      theme={theme}
-                      delay="400"
-                      isVisible={isVisible.works}
-                    />
-                  </div>
-                </div>
-              </section>
-
-              {/* Recommended Tools Section */}
-              <section id="recommended" className={`py-24 px-6 ${darkMode ? 'bg-slate-900' : 'bg-[#F9F7F2]'}`}>
-                <div className="max-w-6xl mx-auto">
-                   <div className="flex flex-col md:flex-row justify-between items-end mb-12 border-b pb-4 border-gray-200 dark:border-gray-700">
-                    <div className="space-y-2">
-                      <span className={`text-xs tracking-[0.3em] font-bold uppercase ${theme.accent}`}>Essentials</span>
-                      <h3 className="text-3xl font-serif">Recommended Tools</h3>
-                    </div>
-                    <p className={`text-sm mt-4 md:mt-0 ${theme.subText}`}>効率化とクオリティアップに欠かせない相棒</p>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <RecommendationItem 
-                      title="AIライティング「Claude 3」"
-                      desc="自然な日本語生成において最強のAI。僕の発信の9割はこれ。社畜でも時短で高品質な投稿を作る必須ツール。"
-                      tag="Writing"
-                      theme={theme}
-                    />
-                     <RecommendationItem 
-                      title="画像生成AI「Midjourney」"
-                      desc="このサイトのような高貴な世界観も、親しみやすいアイコンもこれで作れます。視覚情報はThreadsで超重要。"
-                      tag="Creative"
-                      theme={theme}
-                    />
-                  </div>
-                </div>
-              </section>
-
-              {/* Footer */}
-              <footer className={`py-12 px-6 border-t ${theme.border} text-center`}>
-                <div className="max-w-4xl mx-auto space-y-8">
-                  <h2 className={`text-2xl font-bold tracking-widest ${theme.accent}`}>KENSHIRO</h2>
-                  <div className="flex justify-center gap-8">
-                    <a href="https://www.threads.net/@kenshiro_ai.fukugyo" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>THREADS</a>
-                    <a href="https://lin.ee/Hmq3J35" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>LINE</a>
-                    <a href="#" className={`hover:${theme.accent} transition-colors text-sm tracking-widest`}>NOTE</a>
-                  </div>
-                  <div className={`text-xs ${theme.subText} space-y-2`}>
-                      <p>脱サラ結婚を目指す貴公子 | Threads×AI Monetization</p>
-                      <p>© 2024 Kenshiro Portfolio. All Rights Reserved.</p>
-                  </div>
-                </div>
-              </footer>
-            </div>
-          );
         };
 
-        /* --- Sub Components --- */
-
-        const SocialButton = ({ icon, label, link }) => (
-          <a href={link} target="_blank" className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 text-sm tracking-wider">
-            {icon}
-            <span>{label}</span>
-          </a>
-        );
-
-        const ValueCard = ({ icon, title, desc, theme }) => (
-            <div className={`p-8 rounded-xl ${theme.card} border ${theme.border} text-center space-y-4 hover:-translate-y-1 transition-transform duration-300`}>
-                <div className={`inline-flex p-3 rounded-full ${theme.bg} ${theme.accent} mb-2`}>
-                    {icon}
+        /* --- Components --- */
+        
+        const SectionHeading = ({ number, title, subtitle }) => (
+            <div className="flex flex-col md:flex-row items-baseline gap-4 md:gap-8 mb-16 md:mb-24 fade-up">
+                <span className="text-sm font-en tracking-widest text-brand-gold font-bold">
+                    {number}
+                </span>
+                <div className="flex-1">
+                    <h2 className="text-4xl md:text-6xl font-en font-light uppercase tracking-tight mb-2">
+                        {title}
+                    </h2>
+                    <p className="text-sm md:text-base font-sans opacity-60 tracking-wider">
+                        {subtitle}
+                    </p>
                 </div>
-                <h4 className={`text-xl font-medium ${theme.text}`}>{title}</h4>
-                <p className={`text-sm leading-relaxed ${theme.subText}`}>{desc}</p>
+                <div className="hidden md:block w-32 h-[1px] bg-brand-gold/30 self-center"></div>
             </div>
         );
 
-        const TimelineItem = ({ year, title, desc, icon, theme, isVisible }) => (
-          <div className={`relative md:pl-8 pl-8 transform transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-            <div className={`absolute -left-[9px] top-0 p-1 rounded-full ${theme.bg} border ${theme.border}`}>
-              <div className={`w-2 h-2 rounded-full ${theme.accent.replace('text-', 'bg-')}`}></div>
-            </div>
-            <div className="flex flex-col md:flex-row gap-4 md:items-start group">
-              <div className={`min-w-[120px] font-serif italic text-lg ${theme.accent}`}>{year}</div>
-              <div className="space-y-2 pb-12">
-                <div className="flex items-center gap-2">
-                  <span className={`${theme.subText} opacity-70`}>{icon}</span>
-                  <h4 className={`text-xl font-medium ${theme.text}`}>{title}</h4>
+        const ContentCard = ({ number, title, desc, image, link, note }) => (
+            <a href={link} target="_blank" className="group block relative fade-up">
+                <div className="img-mask-container aspect-[4/3] mb-6">
+                    <div className="img-mask-overlay"></div>
+                    <img src={image} alt={title} className="img-mask-img w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
+                    {note && (
+                        <div className="absolute top-0 right-0 bg-brand-gold text-brand-black text-[10px] font-bold px-2 py-1 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {note}
+                        </div>
+                    )}
                 </div>
-                <p className={`text-sm leading-relaxed ${theme.subText}`}>{desc}</p>
-              </div>
-            </div>
-          </div>
+                <div className="flex items-start gap-4">
+                    <span className="text-xs font-en font-bold text-brand-gold mt-1">{number}</span>
+                    <div className="space-y-2 flex-1">
+                        <h3 className="text-xl md:text-2xl font-serif font-medium group-hover:text-brand-gold transition-colors duration-300">
+                            {title}
+                        </h3>
+                        <p className="text-sm text-gray-500 dark:text-gray-400 font-sans leading-relaxed border-l border-brand-gold/20 pl-3">
+                            {desc}
+                        </p>
+                    </div>
+                    <div className="opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                        <ArrowRight className="text-brand-gold" />
+                    </div>
+                </div>
+            </a>
         );
 
-        const ContentCard = ({ title, category, desc, image, link, theme, delay, isVisible }) => (
-          <a href={link} target="_blank"
-            className={`group relative overflow-hidden rounded-2xl shadow-lg transition-all duration-1000 ${theme.card} hover:-translate-y-2 block`}
-            style={{ transitionDelay: `${delay}ms`, opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(20px)' }}
-          >
-            <div className="h-48 overflow-hidden">
-              <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+        const TimelineItem = ({ year, title, desc, current }) => (
+            <div className={`relative pl-8 md:pl-0 md:grid md:grid-cols-12 gap-8 py-8 border-l md:border-l-0 border-brand-gold/20 fade-up ${current ? 'opacity-100' : 'opacity-80'}`}>
+                {/* Mobile Line Dot */}
+                <div className={`absolute left-[-5px] top-10 w-2.5 h-2.5 rounded-full z-10 md:hidden ${current ? 'bg-brand-gold' : 'bg-gray-300 dark:bg-gray-700'}`}></div>
+                
+                <div className="md:col-span-3 md:text-right md:pr-12 md:border-r md:border-brand-gold/20 relative">
+                    <div className={`hidden md:block absolute right-[-5px] top-2 w-2.5 h-2.5 rounded-full z-10 ${current ? 'bg-brand-gold' : 'bg-gray-300 dark:bg-gray-700'}`}></div>
+                    <span className="text-xs font-en font-bold tracking-widest text-brand-gold block mb-1">{year}</span>
+                    {current && <span className="inline-block text-[10px] bg-brand-gold text-brand-black px-1 py-0.5 font-bold mb-2">NOW</span>}
+                </div>
+                <div className="md:col-span-9">
+                    <h4 className={`text-xl font-serif mb-3 ${current ? 'text-brand-gold' : ''}`}>{title}</h4>
+                    <p className="text-sm font-sans leading-relaxed opacity-70">{desc}</p>
+                </div>
             </div>
-            <div className="p-8 space-y-4">
-              <span className={`text-xs font-bold tracking-wider uppercase ${theme.accent}`}>{category}</span>
-              <h4 className={`text-xl font-serif ${theme.text}`}>{title}</h4>
-              <p className={`text-sm leading-relaxed ${theme.subText}`}>{desc}</p>
-              <div className="pt-4 flex items-center gap-2 text-sm font-medium cursor-pointer hover:opacity-70 transition-opacity">
-                Check Details <ArrowRight size={16} />
-              </div>
-            </div>
-          </a>
         );
 
-        const RecommendationItem = ({ title, desc, tag, theme }) => (
-          <div className={`flex items-start gap-4 p-6 rounded-xl border ${theme.border} ${theme.card} hover:shadow-lg transition-all duration-300`}>
-            <div className="flex-1 space-y-2">
-              <div className="flex justify-between items-center">
-                <h4 className={`text-lg font-medium ${theme.text}`}>{title}</h4>
-                <span className={`text-[10px] px-2 py-1 rounded border ${theme.border} ${theme.subText}`}>{tag}</span>
-              </div>
-              <p className={`text-sm ${theme.subText}`}>{desc}</p>
-            </div>
-            <ExternalLink size={18} className={`${theme.accent} mt-1`} />
-          </div>
-        );
+        /* --- Main App --- */
+        const App = () => {
+            const [loading, setLoading] = useState(true);
+            const [darkMode, setDarkMode] = useState(true); // Default to Dark Mode for Luxury feel
+
+            useEffect(() => {
+                // Initialize Intersection Observer
+                const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // If it's an image container, trigger mask animation slightly later
+                            if (entry.target.classList.contains('img-mask-container')) {
+                                setTimeout(() => entry.target.classList.add('visible'), 200);
+                            }
+                        }
+                    });
+                }, observerOptions);
+
+                const elements = document.querySelectorAll('.fade-up, .reveal-text, .img-mask-container');
+                elements.forEach(el => observer.observe(el));
+
+                // Loading simulation
+                setTimeout(() => setLoading(false), 1500);
+
+                if (darkMode) document.documentElement.classList.add('dark');
+                else document.documentElement.classList.remove('dark');
+
+                return () => observer.disconnect();
+            }, [loading, darkMode]);
+
+            const toggleTheme = () => {
+                setDarkMode(!darkMode);
+            };
+
+            return (
+                <div className="relative">
+                    <CustomCursor />
+                    
+                    {/* Loader */}
+                    <div className={`loader-overlay ${!loading ? 'hidden' : ''}`}>
+                        <div className="text-center">
+                            <h1 className="text-6xl md:text-8xl font-en font-light text-brand-gold tracking-tighter opacity-0 animate-[fadeInUp_1s_forwards]">
+                                Kenshiro
+                            </h1>
+                        </div>
+                    </div>
+
+                    {/* Navigation */}
+                    <nav className="fixed w-full z-40 top-0 left-0 mix-blend-difference text-white">
+                        <div className="max-w-[1440px] mx-auto px-6 h-24 flex justify-between items-center">
+                            <a href="#" className="text-2xl font-en font-bold tracking-tight hover-target">
+                                Kenshiro<span className="text-brand-gold">.</span>
+                            </a>
+                            <div className="flex items-center gap-8">
+                                <div className="hidden md:flex gap-10 text-xs font-en font-medium tracking-[0.2em] uppercase">
+                                    {['Contents', 'About', 'Values', 'Trajectory'].map((item, i) => (
+                                        <a key={i} href={`#${item.toLowerCase()}`} className="hover-target relative group py-2">
+                                            {item}
+                                            <span className="absolute bottom-0 left-0 w-full h-[1px] bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-right group-hover:origin-left"></span>
+                                        </a>
+                                    ))}
+                                </div>
+                                <button onClick={toggleTheme} className="hover-target w-10 h-10 flex items-center justify-center rounded-full border border-white/20 hover:border-brand-gold transition-colors">
+                                    {darkMode ? <Sun size={16}/> : <Moon size={16}/>}
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <header className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+                        {/* Background Image with Parallax Scale */}
+                        <div className="absolute inset-0 z-0">
+                            <div className="w-full h-full bg-cover bg-center transition-transform duration-[20s] ease-out scale-110 animate-[spin_30s_linear_infinite_reverse] md:animate-none md:scale-105" 
+                                 style={{backgroundImage: 'url("https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=2671&auto=format&fit=crop")'}}>
+                            </div>
+                            <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px]"></div>
+                        </div>
+
+                        <div className="relative z-10 w-full max-w-[1440px] px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+                            <div className="md:col-span-8 md:col-start-2">
+                                <div className="reveal-text">
+                                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-en font-light text-white leading-[0.9] tracking-tighter mb-8">
+                                        Threads <span className="font-serif italic text-brand-gold mx-2">×</span> AI<br/>
+                                        <span className="block ml-12 md:ml-24">Monetization</span>
+                                    </h1>
+                                </div>
+                                <div className="md:ml-24 max-w-xl fade-up delay-300">
+                                    <div className="h-[1px] w-20 bg-brand-gold mb-8"></div>
+                                    <p className="text-white/80 font-sans text-lg leading-loose tracking-wide mb-8">
+                                        年319日勤務の社畜奴隷でも、<br/>
+                                        AIと並走して最高月87万超えを達成。<br/>
+                                        楽しみながら、マイペースに…<br/>
+                                        貴方の人生に「安心」という名の新しい柱を。
+                                    </p>
+                                    <div className="flex flex-wrap gap-4">
+                                        <a href="#contents" className="hover-target px-8 py-3 bg-brand-gold text-brand-black text-xs font-bold font-en uppercase tracking-widest hover:bg-white transition-colors duration-300">
+                                            My Contents
+                                        </a>
+                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-8 py-3 border border-white/30 text-white text-xs font-bold font-en uppercase tracking-widest hover:bg-white hover:text-brand-black transition-all duration-300">
+                                            Official Line
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="absolute bottom-10 left-10 text-white/50 text-[10px] font-en tracking-widest vertical-text hidden md:block">
+                            SCROLL DOWN
+                        </div>
+                    </header>
+
+                    {/* Contents Section */}
+                    <section id="contents" className="py-32 px-6 bg-brand-white dark:bg-brand-black relative">
+                        <div className="max-w-[1200px] mx-auto">
+                            <SectionHeading number="01" title="My Contents" subtitle="私の知識と経験を凝縮した、人生を変える武器たち" />
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
+                                <ContentCard 
+                                    number="01"
+                                    title="Threads×note攻略『AITHRAISE』"
+                                    desc="【購入者様：4ヶ月で50万達成】大手エンジニアとの共作。開始14日で成果報告14名以上。30個以上のGPTsが、アカウント設計から投稿・note商品作成までを完全並走サポート【永久更新型】"
+                                    image="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1965&auto=format&fit=crop"
+                                    link="https://brain-market.com/u/hokuto88/a/byIjMyIjMgoTZsNWa0JXY"
+                                    note="AITHERAISE"
+                                />
+                                <ContentCard 
+                                    number="02"
+                                    title="NOTERAISE"
+                                    desc="初日で26万売上を達成。AIを活用したnote攻略の決定版。"
+                                    image="https://images.unsplash.com/photo-1455390582262-044cdead277a?q=80&w=1973&auto=format&fit=crop"
+                                    link="https://brain-market.com/u/hokuto88/a/b2EzN1IjMgoTZsNWa0JXY" 
+                                    note="Noteraise"
+                                />
+                                <ContentCard 
+                                    number="03"
+                                    title="ケンシプ（禁断の無料オプチャ）"
+                                    desc="【退会したら二度と入れません】追ってくれる人を贔屓するための聖域。"
+                                    image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+                                    link="https://note.com/kenshiro0909/n/n22e97c1439c6"
+                                    note="ケンシプ"
+                                />
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Recommended Section */}
+                    <section id="recommend" className="py-32 px-6 bg-brand-lightGray dark:bg-brand-dark">
+                        <div className="max-w-[1200px] mx-auto">
+                             <SectionHeading number="02" title="Recommend" subtitle="おすすめの教材" />
+                             
+                             <div className="md:w-2/3 ml-auto">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div className="md:col-span-1">
+                                        <h3 className="text-2xl font-serif mb-6 leading-relaxed">
+                                            AITHRAISEとの相性抜群。<br/>
+                                            迷いなく進むためのバイブル。
+                                        </h3>
+                                        <p className="text-sm opacity-60 font-sans leading-7 mb-8">
+                                            僕が実際に使用し、成果を加速させたノウハウ。
+                                            Threadsでマネタイズしたい方には必須のアイテムです。
+                                        </p>
+                                    </div>
+                                    <div className="md:col-span-1">
+                                        <ContentCard 
+                                            number="REC"
+                                            title="シンスレッズ攻略"
+                                            desc="Threadsで成果を出している人で持っていない人はゼロ。講座級のノウハウ。"
+                                            image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070&auto=format&fit=crop"
+                                            link="https://kenshiro-sidejob.site/new-threads/"
+                                            note="シンスレッズ"
+                                        />
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+                    </section>
+
+                    {/* Story Section */}
+                    <section id="about" className="py-32 px-6 bg-brand-white dark:bg-brand-black overflow-hidden">
+                        <div className="max-w-[1200px] mx-auto">
+                            <SectionHeading number="03" title="Story" subtitle="年319日社畜の男がAIで効率化しながら結婚するまでのストーリー" />
+
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                                <div className="lg:col-span-5 relative fade-up">
+                                    <div className="img-mask-container aspect-[3/4]">
+                                        <div className="img-mask-overlay"></div>
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" alt="Profile" className="img-mask-img w-full h-full object-cover" />
+                                    </div>
+                                    <div className="absolute -bottom-10 -right-10 md:-right-20 z-10">
+                                        <h3 className="text-6xl md:text-8xl font-en font-light text-brand-gold opacity-20 mix-blend-overlay">Kenshiro</h3>
+                                    </div>
+                                </div>
+                                <div className="lg:col-span-6 lg:col-start-7 space-y-10 fade-up">
+                                    <div className="space-y-6">
+                                        <h3 className="text-3xl font-serif leading-tight">
+                                            泥臭くても、<br/>
+                                            <span className="text-brand-gold italic">自分の人生</span>を諦めない。
+                                        </h3>
+                                        <p className="font-sans text-sm leading-8 opacity-70">
+                                            はじめまして、ケンシロウです。<br/>
+                                            僕の人生は、順風満帆とは程遠いものでした。店長として懸命に働いた職場からの理不尽な解雇。失意の中、Uber Eatsでひたすらペダルを漕ぎ、日銭を稼ぐ日々。
+                                        </p>
+                                        <p className="font-sans text-sm leading-8 opacity-70">
+                                            その後、ご縁がありカフェ店長となりますが、お店は失敗。<br/>
+                                            現在は<strong className="text-brand-gold">週6勤務という過酷な労働環境</strong>に身を置いています。<br/>
+                                            「おじいちゃんになってもこの働き方は続けられない」<br/>
+                                            その焦りと、最愛の彼女と結婚し幸せにするという夢のため、泥臭く副業の世界へ飛び込みました。
+                                        </p>
+                                    </div>
+                                    <div className="flex gap-8 border-t border-brand-gold/20 pt-8">
+                                        <a href="https://www.threads.net/@kenshiro_ai.fukugyo" className="hover-target text-xs font-en font-bold uppercase tracking-widest hover:text-brand-gold transition-colors">Threads</a>
+                                        <a href="https://lin.ee/Hmq3J35" className="hover-target text-xs font-en font-bold uppercase tracking-widest hover:text-brand-gold transition-colors">Line Official</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Philosophy Section */}
+                    <section id="values" className="py-32 px-6 bg-brand-lightGray dark:bg-brand-dark">
+                        <div className="max-w-[1200px] mx-auto">
+                            <SectionHeading number="04" title="Values" subtitle="大切にしている価値観" />
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {[
+                                    {title: "Together", subtitle: "仲間との成長", desc: "一人勝ちはつまらない。<br/>仲間やフォロワーさんと一緒に成長し、<br/>全員で豊かになることを目指します。"},
+                                    {title: "Enjoy", subtitle: "楽しむ努力", desc: "「やらされる」のではなく「楽しむ」。<br/>短期の成果も大事ですが、<br/>長く続けるためのモチベーションを最優先に。"},
+                                    {title: "Long-term", subtitle: "長期目線", desc: "2〜3年後に会社員の給料を作る。<br/>焦らず、地に足をつけて、着実に未来の柱を築き上げます。"}
+                                ].map((item, i) => (
+                                    <div key={i} className="p-8 border border-brand-gold/10 hover:border-brand-gold/40 transition-colors duration-500 fade-up bg-white/5 backdrop-blur-sm">
+                                        <h4 className="text-3xl font-en font-light mb-2 text-brand-gold">{item.title}</h4>
+                                        <h5 className="text-lg font-serif mb-4">{item.subtitle}</h5>
+                                        <p className="text-sm font-sans opacity-60 leading-relaxed text-justify">{item.desc}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Trajectory Section */}
+                    <section id="trajectory" className="py-32 px-6 bg-brand-white dark:bg-brand-black">
+                        <div className="max-w-[1000px] mx-auto">
+                             <SectionHeading number="05" title="Trajectory" subtitle="軌跡" />
+
+                             <div className="space-y-0">
+                                <TimelineItem 
+                                    year="01" 
+                                    title="過去の店長時代〜不当解雇" 
+                                    desc="かつて店長として奮闘するも、副社長の嘘とパワハラにより理不尽な解雇宣告。ストレスで腸炎を発症し、組織への絶望と共に職を失う。"
+                                />
+                                <TimelineItem 
+                                    year="02" 
+                                    title="Uber Eatsでのサバイバル" 
+                                    desc="人間関係に疲れ果て、一人で黙々と働けるUber Eatsへ。1日127km走る日も。「これを一生続けられるか？」と自問自答する日々。"
+                                />
+                                <TimelineItem 
+                                    year="03" 
+                                    title="カフェ店長 & 彼女との出会い" 
+                                    desc="ご縁がありカフェの店長へ。そこで今の彼女と出会い、「この人と結婚したい、脱サラして幸せにしたい」という強烈な動機が生まれる。"
+                                />
+                                <TimelineItem 
+                                    year="04" 
+                                    title="現在の社畜生活" 
+                                    desc="【Now】現在は年319日勤務という過酷な環境で労働中。時間がない中で「資産になる労働」を模索し、副業を決意する。"
+                                    current={true}
+                                />
+                                <TimelineItem 
+                                    year="05" 
+                                    title="副業ブログ〜Threads × AI" 
+                                    desc="初の副業ブログで初収益を達成後、Instagram参入するも社畜で断念。Threadsへピボットするも苦戦を強いられる…"
+                                />
+                                <TimelineItem 
+                                    year="06" 
+                                    title="1年で累計200万以上の収益化を達成" 
+                                    desc="継続の結果、『AITHRAISE』『NOTERAISE』のローンチで爆発的成果。販売開始43日で120万達成。現在は毎月6桁を継続しながらさらなる高みへ、仲間と共に進んでいる。"
+                                />
+                             </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="py-24 px-6 bg-brand-black text-white border-t border-white/10">
+                        <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+                            <div className="text-center md:text-left">
+                                <h2 className="text-6xl font-en font-bold tracking-tighter mb-4">Kenshiro.Portfolio<span className="text-brand-gold">.</span></h2>
+                                <p className="text-xs font-sans opacity-40 tracking-widest">
+                                    © 2024 Kenshiro Portfolio. All Rights Reserved.
+                                </p>
+                            </div>
+                            <div className="flex gap-8">
+                                <a href="https://www.threads.net/@kenshiro_ai.fukugyo" className="hover-target text-sm font-en font-bold uppercase tracking-widest hover:text-brand-gold transition-colors">Threads</a>
+                                <a href="https://lin.ee/Hmq3J35" className="hover-target text-sm font-en font-bold uppercase tracking-widest hover:text-brand-gold transition-colors">Line</a>
+                                <a href="#" className="hover-target text-sm font-en font-bold uppercase tracking-widest hover:text-brand-gold transition-colors">Note</a>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<Portfolio />);
+        root.render(<App />);
     </script>
 </body>
 </html>
