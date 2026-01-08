@@ -47,7 +47,7 @@
                         'spin-slow': 'spin 12s linear infinite',
                         'shimmer': 'shimmer 2s linear infinite',
                         'fade-in-slow': 'fadeIn 2s ease-out forwards',
-                        'pan-mobile': 'pan 8s ease-in-out infinite alternate',   // Fast for Mobile
+                        'pan-mobile': 'pan 3s ease-in-out infinite alternate',   // Fastest for Mobile
                         'pan-desktop': 'pan 15s ease-in-out infinite alternate', // 15s for PC
                     },
                     keyframes: {
@@ -140,6 +140,16 @@
         }
         .reveal-text.visible {
             clip-path: inset(0 0 0 0);
+        }
+
+        /* Auto Reveal Animation - Load Based (For Hero) */
+        .reveal-auto {
+            animation: revealAutoAnim 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0.5s forwards;
+            clip-path: inset(0 0 100% 0); /* Start hidden */
+        }
+        @keyframes revealAutoAnim {
+            0% { clip-path: inset(0 0 100% 0); }
+            100% { clip-path: inset(0 0 0 0); }
         }
 
         .fade-up {
@@ -449,7 +459,7 @@
                             <div className="md:col-span-12 lg:col-span-10 lg:col-start-2">
                                 {/* Use auto-reveal animation here instead of scroll trigger */}
                                 <div className="reveal-auto text-center md:text-left">
-                                    {/* Band added back, font size adjusted */}
+                                    {/* Band removed, text size reduced */}
                                     <div className="mb-8 inline-block relative">
                                         <div className="absolute inset-0 border-y border-white/20 bg-white/5 backdrop-blur-sm -skew-x-12"></div>
                                         <h1 className="relative z-10 text-3xl md:text-5xl lg:text-6xl font-luxury font-bold text-white leading-tight tracking-[0.15em] drop-shadow-2xl py-2 px-8">
@@ -457,21 +467,20 @@
                                         </h1>
                                     </div>
                                     
-                                    <div className="mt-2 flex flex-col md:flex-row md:items-end gap-2 md:gap-6 pl-2">
-                                        <span className="text-gradient-gold font-serif font-bold text-6xl md:text-8xl lg:text-9xl tracking-wider drop-shadow-xl">
+                                    <div className="mt-2 flex flex-row items-baseline justify-center md:justify-start gap-2 md:gap-4 pl-1 md:pl-2">
+                                        <span className="text-gradient-gold font-serif font-bold text-5xl sm:text-6xl md:text-8xl lg:text-9xl tracking-wider drop-shadow-xl whitespace-nowrap">
                                             月10万
                                         </span>
-                                        <span className="text-white/90 font-serif font-light text-2xl md:text-3xl lg:text-4xl tracking-[0.2em] mb-3 ml-2">
+                                        <span className="text-white/90 font-serif font-light text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-[0.2em] mb-0 md:mb-3 whitespace-nowrap">
                                             を叶える
                                         </span>
                                     </div>
                                 </div>
                                 <div className="max-w-2xl fade-up delay-300 mt-12 text-center md:text-left mx-auto md:mx-0">
-                                    <div className="h-[1px] w-24 bg-brand-gold mb-10 mx-auto md:mx-0"></div>
                                     
                                     <div className="mb-12">
-                                        {/* Smaller font size for mobile, no-wrap attempt logic handled by responsive sizes */}
-                                        <p className="text-white font-serif text-sm md:text-xl lg:text-2xl leading-relaxed tracking-widest font-light text-shadow-sm whitespace-nowrap md:whitespace-normal">
+                                        {/* Larger text-xl/2xl, no-wrap on desktop, wrap on mobile if needed but keeping it one line on most devices */}
+                                        <p className="text-white font-serif text-xl md:text-2xl lg:text-3xl leading-relaxed tracking-widest font-light text-shadow-sm whitespace-nowrap md:whitespace-normal">
                                             貴方の人生に<br/>
                                             <span className="relative inline-block mt-2">
                                                 「安心」という名の新しい柱を。
@@ -482,11 +491,11 @@
 
                                     <div className="flex flex-wrap gap-6 justify-center md:justify-start">
                                         {/* NOTE Button: Transparent with Note color border */}
-                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg bg-transparent">
+                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target px-12 py-4 border border-brand-note text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg bg-transparent">
                                             NOTE
                                         </a>
                                         {/* OFFICIAL LINE Button: Transparent with Line color border */}
-                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg bg-transparent">
+                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-12 py-4 border border-brand-line text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg bg-transparent">
                                             OFFICIAL LINE
                                         </a>
                                     </div>
@@ -512,6 +521,7 @@
                                     desc="【購入者様：4ヶ月で50万達成】大手エンジニアとの共作。開始14日で成果報告14名以上。30個以上のGPTsが完全並走サポート"
                                     image="https://github.com/user-attachments/assets/a9a94028-2d85-4d37-9c32-e0ec2df533cf"
                                     link="https://brain-market.com/u/hokuto88/a/byIjMyIjMgoTZsNWa0JXY"
+                                    note="AITHERAISE"
                                     aspectRatio="aspect-video"
                                 />
                                 <ContentCard 
@@ -520,14 +530,16 @@
                                     desc="孤独な作業を終わらせる、熱量の高い仲間との環境。挫折させない仕組みと基準値を高め合う場所で、楽しみながら成果への最短ルートを走り抜ける。"
                                     image="https://github.com/user-attachments/assets/9268ab48-d727-4b8a-bc82-d1c89abaefa4"
                                     link="https://note.com/kenshiro0909/n/n22e97c1439c6"
+                                    note="ケンシプ"
                                     aspectRatio="aspect-video"
                                 />
                                 <ContentCard 
                                     number="03"
                                     title="NOTERAISE"
-                                    desc="AI×Canvaで『売れるサムネ』を自在に操る。クリック率を最大化し、あなたのnoteを収益化の柱へ。"
+                                    desc="AI×Canvaで『売れるサムネ』を自在に操る。クリック率を最大化し、あなたのnoteを収益化の柱へと導きます。"
                                     image="https://github.com/user-attachments/assets/43b0863a-69fd-4ca4-b222-5fb650c1afcf"
                                     link="https://brain-market.com/u/hokuto88/a/b2EzN1IjMgoTZsNWa0JXY" 
+                                    note="Noteraise"
                                     aspectRatio="aspect-video"
                                   />
                             </div>
@@ -555,9 +567,10 @@
                                         <ContentCard 
                                             number="REC"
                                             title="シンスレッズ"
-                                            desc="Threadsで成果を出している人で持っていない人はほぼゼロといっても過言ではないです。講座級のノウハウが魅力！。"
+                                            desc="Threadsで成果を出している人で持っていない人はほぼゼロといっても過言ではない。講座級のノウハウが魅力！"
                                             image="https://github.com/user-attachments/assets/7ece8087-937b-4f9c-bc51-e86b89544eb3"
                                             link="https://kenshiro-sidejob.site/new-threads/"
+                                            note="シンスレッズ"
                                             aspectRatio="aspect-video"
                                         />
                                     </div>
@@ -612,11 +625,11 @@
                                             Threads
                                         </a>
                                         {/* Note Button */}
-                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target flex items-center justify-center px-8 py-4 bg-transparent border border-white text-white text-xs font-bold font-en uppercase tracking-widest hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg">
+                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-white text-white text-xs font-bold font-en uppercase tracking-widest hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg">
                                             Note
                                         </a>
                                         {/* LINE Button */}
-                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target flex items-center justify-center px-8 py-4 bg-transparent border border-white text-white text-xs font-bold font-en uppercase tracking-widest hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg">
+                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target flex items-center justify-center gap-2 px-8 py-4 bg-transparent border border-white text-white text-xs font-bold font-en uppercase tracking-widest hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg">
                                             LINE
                                         </a>
                                     </div>
@@ -649,7 +662,7 @@
                     {/* Trajectory Section */}
                     <section id="trajectory" className="py-32 px-6 bg-[#121212]">
                         <div className="max-w-[1000px] mx-auto">
-                             <SectionHeading number="05" title="Trajectory" subtitle="軌跡" />
+                             <SectionHeading number="05" title="Trajectory" subtitle="～軌跡～" />
 
                              <div className="space-y-0">
                                 <TimelineItem 
