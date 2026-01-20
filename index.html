@@ -152,6 +152,7 @@
             100% { clip-path: inset(0 0 0 0); }
         }
 
+        /* Animation Variations */
         .fade-up {
             opacity: 0;
             transform: translateY(40px);
@@ -160,6 +161,36 @@
         .fade-up.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .fade-right {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .fade-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-left {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .fade-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .zoom-in.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .fade-in {
@@ -334,8 +365,8 @@
             </div>
         );
 
-        const ContentCard = ({ number, title, desc, image, link, note, aspectRatio = "aspect-video" }) => (
-            <a href={link} target="_blank" className="group block relative fade-in w-full">
+        const ContentCard = ({ number, title, desc, image, link, note, aspectRatio = "aspect-video", animationClass = "zoom-in" }) => (
+            <a href={link} target="_blank" className={`group block relative w-full ${animationClass}`}>
                 <div className={`img-mask-container ${aspectRatio} mb-6 w-full flex items-center justify-center bg-[#1a1a1a]`}>
                     <div className="img-mask-overlay"></div>
                     <img src={image} alt={title} className="img-mask-img object-contain" />
@@ -363,7 +394,7 @@
         );
 
         const TimelineItem = ({ year, title, desc, current }) => (
-            <div className={`relative pl-8 md:pl-0 md:grid md:grid-cols-12 gap-8 py-8 border-l md:border-l-0 border-brand-gold/20 fade-up ${current ? 'opacity-100' : 'opacity-80'}`}>
+            <div className={`relative pl-8 md:pl-0 md:grid md:grid-cols-12 gap-8 py-8 border-l md:border-l-0 border-brand-gold/20 fade-right ${current ? 'opacity-100' : 'opacity-80'}`}>
                 <div className={`absolute left-[-5px] top-10 w-2.5 h-2.5 rounded-full z-10 md:hidden ${current ? 'bg-brand-gold' : 'bg-gray-700'}`}></div>
                 <div className="md:col-span-3 md:text-right md:pr-12 md:border-r md:border-brand-gold/20 relative">
                     <div className={`hidden md:block absolute right-[-5px] top-2 w-2.5 h-2.5 rounded-full z-10 ${current ? 'bg-brand-gold' : 'bg-gray-700'}`}></div>
@@ -394,7 +425,8 @@
                     });
                 }, observerOptions);
 
-                const elements = document.querySelectorAll('.fade-up, .fade-in, .reveal-text, .img-mask-container');
+                // Updated selector to include new animation classes
+                const elements = document.querySelectorAll('.fade-up, .fade-in, .fade-right, .fade-left, .zoom-in, .reveal-text, .img-mask-container');
                 elements.forEach(el => observer.observe(el));
 
                 setTimeout(() => setLoading(false), 1500);
@@ -490,12 +522,12 @@
                                     </div>
 
                                     <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-                                        {/* NOTE Button: Transparent with Note color border */}
-                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target px-12 py-4 border border-brand-note text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg bg-transparent">
+                                        {/* NOTE Button: White Border Default, Color on Hover */}
+                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg bg-transparent">
                                             NOTE
                                         </a>
-                                        {/* OFFICIAL LINE Button: Transparent with Line color border */}
-                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-12 py-4 border border-brand-line text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg bg-transparent">
+                                        {/* OFFICIAL LINE Button: White Border Default, Color on Hover */}
+                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg bg-transparent">
                                             OFFICIAL LINE
                                         </a>
                                     </div>
@@ -523,6 +555,7 @@
                                     link="https://brain-market.com/u/hokuto88/a/byIjMyIjMgoTZsNWa0JXY"
                                     note="AITHERAISE"
                                     aspectRatio="aspect-video"
+                                    animationClass="fade-right"
                                 />
                                 <ContentCard 
                                     number="02"
@@ -532,6 +565,7 @@
                                     link="https://note.com/kenshiro0909/n/n22e97c1439c6"
                                     note="ケンシプ"
                                     aspectRatio="aspect-video"
+                                    animationClass="fade-up"
                                 />
                                 <ContentCard 
                                     number="03"
@@ -541,7 +575,8 @@
                                     link="https://brain-market.com/u/hokuto88/a/b2EzN1IjMgoTZsNWa0JXY" 
                                     note="Noteraise"
                                     aspectRatio="aspect-video"
-                                  />
+                                    animationClass="fade-left"
+                                 />
                             </div>
                         </div>
                     </section>
@@ -553,7 +588,7 @@
                              
                              <div className="md:w-2/3 ml-auto">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    <div className="md:col-span-1">
+                                    <div className="md:col-span-1 fade-right">
                                         <h3 className="text-2xl font-serif mb-6 leading-relaxed">
                                             <span className="text-brand-gold font-bold">AITHRAISEとの相性抜群。</span><br/>
                                             迷いなく進むためのバイブル。
@@ -572,6 +607,7 @@
                                             link="https://kenshiro-sidejob.site/new-threads/"
                                             note="シンスレッズ"
                                             aspectRatio="aspect-video"
+                                            animationClass="fade-left"
                                         />
                                     </div>
                                 </div>
@@ -585,7 +621,7 @@
                             <SectionHeading number="03" title="Story" subtitle="～年319日社畜の男がAIで効率化しながら結婚するまでの物語～" />
 
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                                <div className="lg:col-span-5 relative fade-up">
+                                <div className="lg:col-span-5 relative fade-right">
                                     {/* Image with Shadow for Depth */}
                                     <div className="img-mask-container aspect-[9/16] w-full max-w-md mx-auto z-10 relative">
                                         <div className="img-mask-overlay"></div>
@@ -599,7 +635,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div className="lg:col-span-6 lg:col-start-7 space-y-10 fade-up">
+                                <div className="lg:col-span-6 lg:col-start-7 space-y-10 fade-left">
                                     <div className="space-y-6">
                                         <h3 className="text-3xl font-serif leading-tight">
                                             泥臭くても、<br/>
@@ -645,11 +681,11 @@
                             
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                                 {[
-                                    {title: "Together", subtitle: "仲間との成長", desc: "一人勝ちはつまらない。仲間やフォロワーさんと一緒に成長し、全員で豊かになることを目指します。"},
-                                    {title: "Enjoy", subtitle: "楽しむ努力", desc: "「やらされる」のではなく「楽しむ」。短期の成果も大事ですが、長く続けるためのモチベーションを最優先に。"},
-                                    {title: "Long-term", subtitle: "長期目線", desc: "2〜3年後に会社員の給料を作る。焦らず、地に足をつけて、着実に未来の柱を築き上げます。"}
+                                    {title: "Together", subtitle: "仲間との成長", desc: "一人勝ちはつまらない。仲間やフォロワーさんと一緒に成長し、全員で豊かになることを目指します。", delay: '0ms'},
+                                    {title: "Enjoy", subtitle: "楽しむ努力", desc: "「やらされる」のではなく「楽しむ」。短期の成果も大事ですが、長く続けるためのモチベーションを最優先に。", delay: '200ms'},
+                                    {title: "Long-term", subtitle: "長期目線", desc: "2〜3年後に会社員の給料を作る。焦らず、地に足をつけて、着実に未来の柱を築き上げます。", delay: '400ms'}
                                 ].map((item, i) => (
-                                    <div key={i} className="p-8 border border-brand-gold/10 hover:border-brand-gold/40 transition-colors duration-500 fade-up bg-white/5 backdrop-blur-sm">
+                                    <div key={i} className="p-8 border border-brand-gold/10 hover:border-brand-gold/40 transition-colors duration-500 zoom-in bg-white/5 backdrop-blur-sm" style={{transitionDelay: item.delay}}>
                                         <h4 className="text-3xl font-en font-light mb-2 text-brand-gold">{item.title}</h4>
                                         <h5 className="text-lg font-serif mb-4">{item.subtitle}</h5>
                                         <p className="text-sm font-sans opacity-60 leading-relaxed text-justify">{item.desc}</p>
