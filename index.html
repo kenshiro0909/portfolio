@@ -302,6 +302,7 @@
             </svg>
         );
         const ArrowRight = (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>;
+        const MessageCircle = (props) => <Icon {...props}><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></Icon>;
         
         /* --- Custom Cursor --- */
         const CustomCursor = () => {
@@ -369,7 +370,7 @@
                     {number}
                 </span>
                 <div className="flex-1">
-                    <h2 className="text-4xl md:text-6xl font-en font-light uppercase tracking-tight mb-2">
+                    <h2 className="text-4xl md:text-6xl font-en font-light tracking-tight mb-2">
                         {title}
                     </h2>
                     <p className="text-sm md:text-base font-sans opacity-60 tracking-wider">
@@ -555,10 +556,8 @@
                                     </div>
 
                                     <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-                                        <a href="https://note.com/kenshiro0909" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-note hover:border-brand-note hover:text-white transition-all duration-300 shadow-lg bg-transparent">
-                                            NOTE
-                                        </a>
-                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg bg-transparent">
+                                        <a href="https://lin.ee/Hmq3J35" target="_blank" className="hover-target px-12 py-4 border border-white text-white text-xs font-bold font-en uppercase tracking-[0.25em] hover:bg-brand-line hover:border-brand-line hover:text-white transition-all duration-300 shadow-lg bg-transparent flex items-center justify-center gap-3">
+                                            <MessageCircle size={18} />
                                             オプチャ参加
                                         </a>
                                     </div>
@@ -575,7 +574,7 @@
                     <section id="contents" className="py-32 px-6 bg-[#121212] relative">
                         <div className="max-w-[1200px] mx-auto">
                             <SectionHeading number="01" title="My Contents" subtitle="～僕の知識と経験を凝縮した、人生を変える武器たち～" />
-                            <p className="text-[10px] text-gray-400 text-right -mt-10 mb-12 font-sans opacity-60 pr-2">
+                            <p className="text-sm text-white font-bold text-right -mt-10 mb-12 font-sans pr-2">
                                 ※信頼できるものに限りPRあり
                             </p>
 
@@ -800,6 +799,11 @@
                                     year="06" 
                                     title="１年で累計２００万以上の収益化を達成" 
                                     desc="継続の結果、『AITHRAISE』『NOTERAISE』販売開始43日で120万達成。現在は毎月6桁を継続しながらさらなる高みへ、仲間と共に進んでいる。"
+                                />
+                                <TimelineItem 
+                                    year="07" 
+                                    title="2026年初月 最高月収更新 & 月100万突破" 
+                                    desc="『Gemini×GitHub サイト構築』のリリースにより、わずか3日間で90万の収益を達成。最高月収を大幅に更新し、念願の月商100万の壁を突破。"
                                     current={true}
                                 />
                              </div>
