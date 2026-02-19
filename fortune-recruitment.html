@@ -16,11 +16,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
         .cta-pulse {
             animation: pulse 2s infinite;
         }
@@ -33,48 +28,62 @@
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <div class="font-bold text-xl tracking-tighter text-slate-900 drop-shadow-sm" id="nav-logo">
-                FORTUNE <span class="text-amber-500">LAB</span>
-            </div>
-            <a href="#apply" class="bg-slate-900 text-white px-5 py-2 rounded-full text-xs font-bold hover:bg-amber-600 transition-colors">
-                モニター応募
-            </a>
-        </div>
-    </nav>
-
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 px-6 overflow-hidden bg-slate-900 min-h-[90vh] flex items-center">
+    <section class="relative pt-24 pb-24 px-6 overflow-hidden bg-slate-900 min-h-[80vh] flex items-center text-center">
+        <!-- Background Decor -->
         <div class="absolute inset-0 opacity-20 pointer-events-none">
-            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(245,158,11,0.2),transparent_70%)]"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(245,158,11,0.25),transparent_70%)]"></div>
         </div>
         
-        <div class="max-w-4xl mx-auto relative z-10 text-center text-white">
-            <div class="inline-block px-4 py-1 border border-amber-500 text-amber-500 rounded-full text-xs font-bold mb-6 tracking-widest">
-                オプチャ限定・第1期モニター募集
+        <div class="max-w-4xl mx-auto relative z-10 text-white">
+            <!-- Badge & Urgency -->
+            <div class="mb-12">
+                <div class="inline-block px-6 py-2 border border-amber-500 text-amber-500 rounded-full text-sm md:text-base font-bold mb-4 tracking-widest uppercase bg-amber-500/10">
+                    オプチャ限定・第1期モニター募集
+                </div>
+                <div class="max-w-md mx-auto">
+                    <p class="text-red-500 font-bold text-xs md:text-sm animate-pulse tracking-tight">
+                        募集はオプチャ限定です。オプチャ参加者のみが2期生以降の応募が可能です。（時期募集は未定）
+                    </p>
+                </div>
             </div>
-            <h1 class="text-3xl md:text-6xl font-black mb-8 leading-tight tracking-tight">
+
+            <!-- Impact Catchphrase -->
+            <h1 class="text-4xl md:text-7xl font-black mb-10 leading-tight tracking-tighter drop-shadow-lg text-white">
                 占いで稼ぐのは、<br>
-                <span class="text-gradient">通過点に過ぎない。</span>
+                <span class="text-gradient underline decoration-slate-700 decoration-4 underline-offset-8">通過点に過ぎない。</span>
             </h1>
-            <p class="text-base md:text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto">
-                スキル不要。未経験OK。叩き込むのは「どのジャンルでも通用する本質的な売れる思考」。
-            </p>
+            
+            <!-- Message -->
+            <div class="mb-14">
+                <p class="text-lg md:text-2xl font-bold text-slate-100 mb-4 leading-relaxed tracking-tight px-4">
+                    スキル不要。未経験OK。<br>
+                    本講座では、『<span class="text-amber-400">本質的な売れる思考</span>』まで手に入ります。
+                </p>
+                <div class="w-16 h-1 bg-amber-500 mx-auto rounded-full mt-6 opacity-80"></div>
+            </div>
+
+            <!-- Main Image (Added based on request) -->
+            <div class="mb-14 flex justify-center">
+                <img src="https://raw.githubusercontent.com/kenshiro0909/sko-kouza-open/main/assets/fortune3.jpg" alt="占い講座メインビジュアル" class="w-full max-w-3xl rounded-2xl shadow-2xl border border-white/10">
+            </div>
+
+            <!-- CTA Button -->
             <div class="flex justify-center">
-                <a href="#apply" class="cta-pulse bg-amber-500 text-slate-900 px-8 py-5 rounded-2xl font-black text-lg md:text-xl hover:bg-amber-400 transition-all shadow-2xl shadow-amber-500/20">
-                    選考アンケートへ進む
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSftzMA5mZUiCc9hCGCLuWaULpzxdf2W59hfZTiBTPUhtXB9Pw/viewform" 
+                   target="_blank"
+                   class="cta-pulse bg-amber-500 text-slate-900 px-12 py-6 rounded-2xl font-black text-xl md:text-3xl hover:bg-amber-400 transition-all shadow-2xl shadow-amber-500/40 transform hover:scale-105 active:scale-95 border-b-4 border-amber-700">
+                    応募はこちら →
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Proof Section -->
-    <section class="py-20 bg-white px-6">
+    <section class="py-20 bg-white px-6 border-b border-slate-100">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <p class="text-amber-500 font-bold mb-2 tracking-widest uppercase text-sm">PROVEN RESULTS</p>
+                <p class="text-amber-500 font-bold mb-2 tracking-widest uppercase text-sm uppercase">PROVEN RESULTS</p>
                 <h2 class="text-2xl md:text-4xl font-bold text-slate-900">圧倒的な成果の記録</h2>
                 <div class="w-16 h-1 bg-amber-500 mx-auto mt-4 rounded-full"></div>
             </div>
@@ -83,29 +92,28 @@
                 <!-- Omochi Card -->
                 <div class="bg-slate-50 p-8 rounded-3xl border border-slate-100 shadow-sm">
                     <div class="flex items-center gap-4 mb-6">
-                        <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 shrink-0">
+                        <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 shrink-0 shadow-inner">
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                         </div>
                         <div>
                             <h3 class="text-lg font-bold">ケンシプ運営：おもち</h3>
-                            <p class="text-slate-500 text-sm italic">占い界のトップランナー</p>
                         </div>
                     </div>
                     <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
+                        <li class="flex items-start gap-3 text-slate-700">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-500 mt-1 shrink-0 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            <span class="text-base">新垢開始初月から<span class="font-bold text-slate-900">30万円</span>オーバー</span>
+                            <span class="text-base font-medium font-bold">新垢開始初月から<span class="font-bold text-slate-900 underline decoration-amber-300">30万円</span>オーバー</span>
                         </li>
-                        <li class="flex items-start gap-3">
+                        <li class="flex items-start gap-3 text-slate-700">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-500 mt-1 shrink-0 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            <span class="text-base">今月すでに<span class="font-bold text-slate-900 text-lg">68万円達成</span>（100万射程内）</span>
+                            <span class="text-base font-medium font-bold text-amber-600">今月すでに68万円達成（100万射程内）</span>
                         </li>
                     </ul>
                 </div>
 
-                <!-- My Card -->
-                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden">
-                    <div class="absolute -right-4 -top-4 text-slate-800 opacity-50">
+                <!-- Kenshiro Card -->
+                <div class="bg-slate-900 p-8 rounded-3xl text-white shadow-xl relative overflow-hidden border border-slate-700">
+                    <div class="absolute -right-4 -top-4 text-slate-800 opacity-30">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-24 h-24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                     </div>
                     <div class="relative z-10 flex items-center gap-4 mb-6">
@@ -113,22 +121,22 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold">僕の「超効率」運用記録</h3>
-                            <p class="text-slate-400 text-sm">多忙な中、片手間で挑戦</p>
+                            <h3 class="text-lg font-bold">ケンシプ運営者：ケンシロウ</h3>
+                            <p class="text-slate-400 text-sm italic underline decoration-amber-500/50 tracking-wide">多忙な中、エコ運用で挑戦</p>
                         </div>
                     </div>
-                    <ul class="space-y-4 relative z-10">
+                    <ul class="space-y-4 relative z-10 text-slate-200 font-medium">
                         <li class="flex items-start gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 mt-1 shrink-0 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            <span class="text-base text-slate-200">開始2日で<span class="font-bold text-amber-400">1.2万インプ</span>達成</span>
+                            <span class="text-base font-bold font-bold">開始2日で<span class="text-amber-400 text-lg underline decoration-amber-400/50">1.2万円</span>達成</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 mt-1 shrink-0 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            <span class="text-base text-slate-200">フォロワー8名で<span class="font-bold text-amber-400">5桁収益</span></span>
+                            <span class="text-base font-bold font-bold text-white tracking-tight">フォロワー8名で5桁収益化</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 mt-1 shrink-0 w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                            <span class="text-base text-slate-200">再開時に<span class="font-bold text-amber-400">日給1.7万円</span></span>
+                            <span class="text-base leading-snug font-bold text-slate-300">運用再開時に、インプ2桁でも日給1.7万円</span>
                         </li>
                     </ul>
                 </div>
@@ -137,27 +145,27 @@
     </section>
 
     <!-- Message Section -->
-    <section class="py-20 bg-slate-50 px-6">
+    <section class="py-20 bg-white px-6">
         <div class="max-w-4xl mx-auto">
-            <div class="bg-white p-8 md:p-16 rounded-[2rem] shadow-sm relative overflow-hidden">
-                <div class="absolute top-0 right-0 p-8 text-slate-100 hidden md:block">
+            <div class="bg-slate-900 p-8 md:p-16 rounded-[2rem] shadow-2xl relative overflow-hidden text-center md:text-left border border-slate-800 shadow-slate-200">
+                <div class="absolute top-0 right-0 p-8 text-slate-800 opacity-20 hidden md:block">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
                 <div class="relative z-10">
-                    <h3 class="text-xl md:text-3xl font-black mb-8 leading-tight text-slate-900">
+                    <h3 class="text-xl md:text-3xl font-black mb-8 leading-tight text-white tracking-tight">
                         社畜、多忙、怠惰…<br>
                         そんな僕でも勝てた「異常な効率性」
                     </h3>
-                    <p class="text-base leading-relaxed text-slate-600 mb-6">
-                        正直、仕組み構築で手一杯の僕でも、かなりの「エコ（怠惰）運用」で成果が出てしまっています。もし占いに全リソースを注ぎ込んだら…正直、かなりヤバイことになると確信しています。
+                    <p class="text-base leading-relaxed text-slate-300 mb-6 font-medium font-bold">
+                        正直、仕組み構築で手一杯の僕でも、かなりの「エコ（怠惰）運用」で成果が出てしまっています。準備さえ整えば、圧倒的な省エネ運用でマネタイズが可能です。
                     </p>
-                    <div class="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl my-8">
-                        <p class="font-bold text-amber-900 italic text-lg leading-snug">
-                            「占いで稼ぐ」だけを教えるつもりはありません。
+                    <div class="bg-amber-500/10 border-l-4 border-amber-500 p-6 md:p-8 rounded-r-xl my-8">
+                        <p class="font-bold text-amber-400 italic text-lg md:text-2xl leading-snug font-bold">
+                            『知らずにマーケティングを学べるので、<br>ほかジャンルにも活かせる知識が身につく。』
                         </p>
                     </div>
-                    <p class="text-base leading-relaxed text-slate-600">
-                        僕たちがこの講座で叩き込むのは、<span class="font-bold text-slate-900 border-b-2 border-amber-400 pb-0.5">どのジャンルでも売れる思考の本質</span>です。占いはその圧倒的な威力を体感するための「通過点」でしかありません。
+                    <p class="text-base leading-relaxed text-slate-400 font-medium italic font-bold">
+                        <span class="font-bold text-white border-b-2 border-amber-500/50 pb-0.5">占いはその圧倒的な威力を体感するための「通過点」でしかありません。</span>
                     </p>
                 </div>
             </div>
@@ -166,53 +174,102 @@
 
     <!-- Policy Section -->
     <section class="py-20 bg-white px-6">
-        <div class="max-w-6xl mx-auto">
+        <div class="max-w-4xl mx-auto text-center">
             <div class="text-center mb-16">
                 <p class="text-amber-500 font-bold mb-2 tracking-widest uppercase text-sm">MISSION POLICY</p>
-                <h2 class="text-2xl md:text-4xl font-bold text-slate-900">本気の人のための環境</h2>
-                <div class="w-16 h-1 bg-amber-500 mx-auto mt-4 rounded-full"></div>
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 tracking-tighter">本気の人のための環境</h2>
+                <div class="w-16 h-1.5 bg-amber-500 mx-auto mt-4 rounded-full"></div>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="p-8 border border-slate-100 rounded-3xl bg-slate-50 flex flex-col items-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-red-500 mb-6 w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                    <h4 class="text-lg font-black mb-4">ゆるい講座ではない</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">課題もあり、フィードバックも本気で行います。ただ稼ぎたいだけの他力本願な方はご遠慮ください。</p>
+            <div class="flex justify-center">
+                <!-- Policy Card -->
+                <div class="max-w-lg w-full p-10 border border-amber-200 rounded-[2.5rem] bg-amber-50 flex flex-col items-center text-center shadow-lg transform hover:-translate-y-1 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-600 mb-6 w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <h4 class="text-2xl font-black mb-6 text-slate-900 tracking-tighter">成果率100％への執念</h4>
+                    <p class="text-base text-slate-700 leading-relaxed font-bold italic">
+                        3名の運営陣が徹底サポート。<br>投稿添削を含め、一人ひとりに深く向き合うため、<br>選考は非常に厳しく設定しています。
+                    </p>
                 </div>
-                <div class="p-8 border border-slate-100 rounded-3xl bg-slate-50 flex flex-col items-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-emerald-500 mb-6 w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-                    <h4 class="text-lg font-black mb-4">0から100まで引上げる</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">ついてきてくれる人は、僕たちが責任を持って成長させます。0→1、1→100まで伴走します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentors Section -->
+    <section class="py-20 bg-slate-50 px-6">
+        <div class="max-w-6xl mx-auto text-center md:text-left">
+            <div class="text-center mb-16">
+                <p class="text-amber-500 font-bold mb-2 tracking-widest uppercase text-xs md:text-sm uppercase">OUR TEAM</p>
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 tracking-tighter text-center">運営陣紹介</h2>
+                <p class="text-slate-500 text-sm mt-3 font-medium text-center">一人ひとりに向き合う、3名の伴走者</p>
+                <div class="w-16 h-1 bg-amber-500 mx-auto mt-4 rounded-full text-center"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- Kenshiro -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col items-center md:items-start group hover:shadow-md transition-shadow">
+                    <div class="w-full aspect-square bg-slate-100 rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-slate-200">
+                        <img src="https://raw.githubusercontent.com/kenshiro0909/sko-kouza-open/main/assets/kenshiro.png" alt="ケンシロウ" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-black text-slate-900 mb-2 underline decoration-amber-500 decoration-4">ケンシロウ</h4>
+                    <p class="text-xs text-amber-600 font-bold mb-4 uppercase tracking-tighter">Strategic Lead</p>
+                    <ul class="text-sm text-slate-600 leading-relaxed font-medium space-y-1">
+                        <li>①稼ぐ系最高月額100万オーバー</li>
+                        <li>②占い初心者が投稿開始2日で5桁達成</li>
+                        <li>③講座運営責任者</li>
+                    </ul>
                 </div>
-                <div class="p-8 border border-slate-100 rounded-3xl bg-slate-50 flex flex-col items-center text-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-500 mb-6 w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    <h4 class="text-lg font-black mb-4">スキル・実績不要</h4>
-                    <p class="text-sm text-slate-600 leading-relaxed">能力は問いません。必要なのは「本気で人生を変えたい」という、たった一つの熱意だけです。</p>
+                <!-- Omochi -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col items-center md:items-start group hover:shadow-md transition-shadow">
+                    <div class="w-full aspect-square bg-amber-50 rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-slate-200">
+                        <img src="https://raw.githubusercontent.com/kenshiro0909/sko-kouza-open/main/assets/omochi.webp" alt="おもち" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-black text-slate-900 mb-2 underline decoration-amber-500 decoration-4">おもち</h4>
+                    <p class="text-xs text-amber-600 font-bold mb-4 uppercase tracking-tighter">Field Expert</p>
+                    <ul class="text-sm text-slate-700 leading-relaxed font-bold space-y-1 text-left">
+                        <li>①初月複数垢開始で、初月30万オーバー</li>
+                        <li>②2ヶ月目半月で74万オーバー</li>
+                        <li>③現役の稼ぎ方を伝授</li>
+                    </ul>
+                </div>
+                <!-- Shun -->
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col items-center md:items-start group hover:shadow-md transition-shadow">
+                    <div class="w-full aspect-square bg-slate-50 rounded-2xl mb-6 overflow-hidden flex items-center justify-center border border-slate-200">
+                        <img src="https://raw.githubusercontent.com/kenshiro0909/sko-kouza-open/main/assets/shyun.png" alt="しゅん" class="w-full h-full object-cover">
+                    </div>
+                    <h4 class="text-xl font-black text-slate-900 mb-2 underline decoration-amber-500 decoration-4 text-slate-900">しゅん</h4>
+                    <p class="text-xs text-amber-600 font-bold mb-4 uppercase tracking-tighter">Tech Support</p>
+                    <ul class="text-sm text-slate-600 leading-relaxed font-medium space-y-1">
+                        <li>①AIを駆使して作業効率UPのサポート</li>
+                        <li>②得意の言語化で投稿のテクニカルな添削を担当</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Selection Rules -->
-    <section class="py-20 bg-slate-900 text-white px-6">
-        <div class="max-w-4xl mx-auto">
+    <section class="py-20 bg-slate-900 text-white px-6 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto text-center md:text-left">
             <div class="text-center mb-12">
-                <p class="text-amber-500 font-bold mb-2 tracking-widest uppercase text-xs">WHY NOW?</p>
-                <h2 class="text-2xl md:text-3xl font-bold">なぜ、いま動くべきなのか？</h2>
+                <p class="text-amber-500 font-bold mb-2 tracking-widest uppercase text-xs md:text-sm text-amber-500 uppercase">PROCESS</p>
+                <h2 class="text-2xl md:text-4xl font-black italic underline decoration-amber-500 decoration-8 underline-offset-8">選考のルール</h2>
             </div>
             
-            <div class="space-y-4">
-                <div class="flex items-start gap-4 p-6 bg-slate-800/50 rounded-2xl border border-slate-700">
-                    <div class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm">1</div>
-                    <p class="text-sm md:text-base text-slate-300">オプチャ限定のクローズド募集。このチャンスは外部には公開されません。</p>
+            <div class="space-y-6">
+                <div class="flex items-start gap-4 p-6 bg-slate-800/50 rounded-2xl border border-slate-700 shadow-inner group">
+                    <div class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm shadow-md group-hover:scale-110 transition-transform">1</div>
+                    <p class="text-sm md:text-lg text-slate-300 font-bold leading-relaxed italic text-amber-400">募集はオプチャ限定です。オプチャ参加者のみが2期生以降の応募が可能です。（時期募集は未定）</p>
                 </div>
-                <div class="flex items-start gap-4 p-6 bg-slate-800/50 rounded-2xl border border-slate-700">
-                    <div class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm">2</div>
-                    <p class="text-sm md:text-base text-slate-300">1期生の枠が最も少なく、かつ有利。回を重ねるごとに選考は厳しくなります。</p>
+                <div class="flex items-start gap-4 p-6 bg-slate-800/50 rounded-2xl border border-slate-700 shadow-inner group">
+                    <div class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm shadow-md group-hover:scale-110 transition-transform">2</div>
+                    <p class="text-sm md:text-lg text-slate-300 font-bold leading-relaxed font-bold text-left">
+                        一人ひとりと深く向き合うため、選考は極めて厳正に行います。<br class="hidden md:block">
+                        妥協のない基準で「本気の人」だけを選ばせていただきます。
+                    </p>
                 </div>
-                <div class="flex items-start gap-4 p-6 bg-slate-800/50 rounded-2xl border border-slate-700">
-                    <div class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm">3</div>
-                    <p class="text-sm md:text-base text-slate-300 text-amber-400 font-bold">選考基準は「スキル」ではなく「熱量」。僕たちに熱意をぶつけてください。</p>
+                <div class="flex items-start gap-4 p-6 bg-slate-800/50 rounded-2xl border border-slate-700 shadow-inner group text-left">
+                    <div class="bg-amber-500 text-slate-900 w-8 h-8 rounded-full flex items-center justify-center font-black shrink-0 text-sm shadow-md group-hover:scale-110 transition-transform">3</div>
+                    <p class="text-sm md:text-lg text-slate-300 text-amber-400 font-black leading-relaxed italic uppercase font-bold text-amber-400 italic font-bold">選考基準は「スキル」ではなく「熱量」。僕たちにあなたの覚悟をぶつけてください。</p>
                 </div>
             </div>
         </div>
@@ -221,53 +278,76 @@
     <!-- Final CTA -->
     <section id="apply" class="py-24 bg-white px-6">
         <div class="max-w-3xl mx-auto">
-            <div class="bg-gradient-to-br from-amber-500 to-amber-600 p-10 md:p-16 rounded-[2.5rem] shadow-2xl text-center relative overflow-hidden">
+            <div class="bg-gradient-to-br from-amber-500 to-amber-600 p-10 md:p-20 rounded-[3rem] shadow-2xl text-center relative overflow-hidden">
                 <div class="absolute inset-0 opacity-10 pointer-events-none">
-                    <svg class="absolute -top-10 -left-10 w-40 h-40 fill-white" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
+                    <svg class="absolute -top-10 -left-10 w-64 h-64 fill-white blur-2xl" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"/></svg>
                 </div>
                 
-                <h2 class="text-2xl md:text-4xl font-black text-slate-900 mb-6 relative z-10 leading-tight">
+                <h2 class="text-3xl md:text-6xl font-black text-slate-900 mb-8 relative z-10 leading-tight tracking-tighter drop-shadow-sm text-slate-900 font-bold">
                     次は、あなたが<br>変革を起こす番です。
                 </h2>
-                <p class="text-base text-slate-900/80 mb-10 relative z-10 font-bold">
-                    何度でも挑戦できます。<br>
-                    しかし、チャンスを掴めるのは「今」動いた人だけ。
+                <p class="text-lg md:text-2xl text-slate-900/90 mb-12 relative z-10 font-black leading-relaxed text-slate-900 font-bold">
+                    成果率100％を目指す、妥協なき本気の環境。<br>
+                    チャンスを掴めるのは「今」動いた人だけ。
                 </p>
                 
-                <div class="relative z-10">
-                    <a href="#" class="inline-block w-full md:w-auto bg-slate-900 text-white px-10 py-5 rounded-2xl font-black text-xl hover:bg-slate-800 transition-all shadow-xl">
-                        詳細・応募はこちら →
+                <div class="relative z-10 text-center">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSftzMA5mZUiCc9hCGCLuWaULpzxdf2W59hfZTiBTPUhtXB9Pw/viewform" 
+                       target="_blank"
+                       class="inline-block w-full md:w-auto bg-slate-900 text-white px-12 py-6 rounded-2xl font-black text-xl md:text-3xl hover:bg-slate-800 transition-all shadow-xl active:scale-95 transform hover:-translate-y-1">
+                        応募はこちら →
                     </a>
-                    <p class="text-[10px] text-slate-900/60 font-black mt-6 tracking-[0.2em] uppercase">
-                        ※アンケート形式による選考を行います
+                    <p class="text-[10px] md:text-xs text-slate-900/60 font-black mt-8 tracking-[0.2em] uppercase text-center italic text-slate-900/60 font-bold">
+                        ※ アンケート形式による厳正な選考を行います
                     </p>
                 </div>
             </div>
-            <div class="mt-12 text-center text-slate-400 italic text-sm px-4 leading-relaxed">
+            <div class="mt-16 text-center text-slate-400 italic text-sm md:text-base px-4 leading-relaxed font-bold tracking-tight">
                 「気になる」「挑戦してみたい」<br>
                 そう思った瞬間が、あなたの人生が動き出す時です。
             </div>
         </div>
     </section>
 
+    <!-- Work Environment Section -->
+    <section id="environment" class="py-20 bg-slate-50 px-6 border-t border-slate-200">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="text-center mb-12">
+                <p class="text-amber-600 font-bold mb-2 tracking-widest uppercase text-xs md:text-sm uppercase font-bold text-amber-600">ENVIRONMENT</p>
+                <h2 class="text-2xl md:text-4xl font-bold text-slate-900 tracking-tighter text-center">必要な作業環境</h2>
+                <div class="w-16 h-1 bg-amber-500 mx-auto mt-4 rounded-full text-center"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 flex flex-col items-center group hover:border-amber-500 transition-colors">
+                    <div class="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    </div>
+                    <span class="text-2xl font-black text-slate-900 italic tracking-tighter">Genspark</span>
+                    <p class="text-xs text-slate-400 mt-2">（AIリサーチツール）</p>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 flex flex-col items-center group hover:border-amber-500 transition-colors">
+                    <div class="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    </div>
+                    <span class="text-2xl font-black text-slate-900 tracking-tight tracking-widest">PC</span>
+                    <p class="text-xs text-slate-400 mt-2">（Windows / Mac）</p>
+                </div>
+            </div>
+
+            <div class="mt-8 px-6 py-3 bg-red-50 text-red-600 border border-red-100 rounded-2xl inline-block max-w-full">
+                <p class="text-xs md:text-sm font-bold flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                    スマホのみは作業効率低下のため非推奨
+                </p>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="py-12 bg-slate-50 border-t border-slate-200 text-center px-6">
-        <p class="text-slate-400 text-[10px] tracking-widest uppercase">© 2024 FORTUNE LAB / Kenshipu All Rights Reserved.</p>
+        <p class="text-slate-400 text-[10px] md:text-xs tracking-widest uppercase font-black tracking-[0.3em] font-bold">© 2024 FORTUNE LAB / Kenshipu All Rights Reserved.</p>
     </footer>
 
-    <script>
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            const logo = document.getElementById('nav-logo');
-            if (window.scrollY > 50) {
-                nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
-                nav.classList.remove('py-4');
-                logo.classList.add('text-slate-900');
-            } else {
-                nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-sm', 'py-3');
-                nav.classList.add('py-4');
-            }
-        });
-    </script>
 </body>
 </html>
