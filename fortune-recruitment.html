@@ -1,0 +1,251 @@
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, CheckCircle2, AlertCircle, Users, TrendingUp, Zap, Star, ShieldCheck, ArrowRight, MessageSquare } from 'lucide-react';
+
+const App = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const SectionTitle = ({ children, subtitle }) => (
+    <div className="text-center mb-12">
+      {subtitle && <p className="text-amber-500 font-bold mb-2 tracking-widest uppercase">{subtitle}</p>}
+      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 leading-tight">{children}</h2>
+      <div className="w-20 h-1 bg-amber-500 mx-auto mt-4 rounded-full"></div>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 antialiased">
+      {/* Navigation */}
+      <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}`}>
+        <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+          <div className="font-bold text-xl tracking-tighter text-slate-900">
+            FORTUNE <span className="text-amber-500">LAB</span>
+          </div>
+          <a href="#apply" className="bg-slate-900 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-amber-600 transition-colors">
+            モニター応募
+          </a>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 overflow-hidden bg-slate-900">
+        <div className="absolute inset-0 opacity-20 pointer-events-none">
+          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(245,158,11,0.15),transparent_70%)]"></div>
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-4 relative z-10 text-center text-white">
+          <div className="inline-block px-4 py-1 border border-amber-500 text-amber-500 rounded-full text-sm font-bold mb-6">
+            オプチャ限定・第1期モニター生募集
+          </div>
+          <h1 className="text-4xl md:text-6xl font-extrabold mb-8 leading-tight tracking-tight">
+            占いで稼ぐのは、<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">
+              通過点に過ぎない。
+            </span>
+          </h1>
+          <p className="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed max-w-2xl mx-auto">
+            スキル不要。未経験OK。叩き込むのは「どのジャンルでも通用する本質的な売れる思考」。
+          </p>
+          <div className="flex flex-col md:flex-row justify-center gap-4">
+            <a href="#apply" className="bg-amber-500 text-slate-900 px-10 py-5 rounded-xl font-black text-xl hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 transform hover:-translate-y-1">
+              選考アンケートへ進む
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Proof Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <SectionTitle subtitle="実績が証明する再現性">圧倒的な成果の記録</SectionTitle>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Omochi Card */}
+            <div className="bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:shadow-xl transition-shadow">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center text-amber-600">
+                  <Star size={32} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">ケンシプ運営：おもち（姉さん）</h3>
+                  <p className="text-slate-500">占い界のトップランナー</p>
+                </div>
+              </div>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="text-amber-500 mt-1 shrink-0" size={20} />
+                  <span className="text-lg">新垢開始初月から<span className="font-bold text-slate-900">30万円</span>オーバー</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="text-amber-500 mt-1 shrink-0" size={20} />
+                  <span className="text-lg">今月すでに<span className="font-bold text-slate-900">68万円</span>達成（100万射程圏内）</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Author Card */}
+            <div className="bg-slate-900 p-8 rounded-3xl text-white shadow-2xl">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-slate-800 rounded-full flex items-center justify-center text-amber-400">
+                  <Zap size={32} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">僕の「超効率」挑戦記録</h3>
+                  <p className="text-slate-400">仕組み構築の傍ら、片手間で挑戦</p>
+                </div>
+              </div>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="text-amber-400 mt-1 shrink-0" size={20} />
+                  <span className="text-lg">開始2日で<span className="font-bold text-amber-400">1.2万インプ</span>（2桁量産の中で突出）</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="text-amber-400 mt-1 shrink-0" size={20} />
+                  <span className="text-lg">フォロワーわずか8名で<span className="font-bold text-amber-400">5桁収益</span>達成</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="text-amber-400 mt-1 shrink-0" size={20} />
+                  <span className="text-lg">放置後の再開時に<span className="font-bold text-amber-400">日給1.7万円</span></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Message Section */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-white p-10 md:p-16 rounded-[2rem] shadow-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 text-slate-100">
+              <MessageSquare size={120} />
+            </div>
+            <div className="relative z-10">
+              <h3 className="text-2xl md:text-3xl font-bold mb-8 leading-tight">
+                社畜、多忙、怠惰…<br />
+                そんな僕でも勝てた、異常な「効率性」
+              </h3>
+              <p className="text-lg leading-relaxed text-slate-600 mb-6">
+                正直、仕組み構築で手一杯の僕でも、かなりの「エコ（怠惰）運用」で成果が出てしまっています。もし僕が今、占いに全リソースを注ぎ込んだら…正直、かなりヤバイことになると確信しています。
+              </p>
+              <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-r-xl">
+                <p className="font-bold text-amber-900 italic text-xl">
+                  「占いで稼ぐ」だけを教えるつもりはありません。
+                </p>
+              </div>
+              <p className="text-lg leading-relaxed text-slate-600 mt-8">
+                僕たちがこの講座で叩き込むのは、<span className="font-bold text-slate-900 underline decoration-amber-400 decoration-4">どのジャンルでも売れる思考の本質</span>です。占いはその圧倒的な威力を体感するための「通過点」でしかありません。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Policy Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <SectionTitle subtitle="覚悟のある方のみ">講座のポリシー</SectionTitle>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="p-8 border border-slate-100 rounded-2xl bg-slate-50">
+              <AlertCircle className="text-red-500 mb-4" size={32} />
+              <h4 className="text-xl font-bold mb-4">ゆるい講座ではない</h4>
+              <p className="text-slate-600">課題もあります。フィードバックも本気で行います。ただ稼ぎたいだけの他力本願な方はお断りします。</p>
+            </div>
+            <div className="p-8 border border-slate-100 rounded-2xl bg-slate-50">
+              <TrendingUp className="text-emerald-500 mb-4" size={32} />
+              <h4 className="text-xl font-bold mb-4">0から100まで引き上げる</h4>
+              <p className="text-slate-600">ついてきてくれる人は、僕たちが責任を持って成長させます。0→1、1→10、10→100まで伴走します。</p>
+            </div>
+            <div className="p-8 border border-slate-100 rounded-2xl bg-slate-50">
+              <ShieldCheck className="text-blue-500 mb-4" size={32} />
+              <h4 className="text-xl font-bold mb-4">スキル・実績不要</h4>
+              <p className="text-slate-600">現時点での能力は問いません。必要なのは「本気で人生を変えたい」という、たった一つの熱意だけです。</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Selection Rules */}
+      <section className="py-20 bg-slate-900 text-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <SectionTitle subtitle="第1期選考について">なぜ、いま動くべきなのか？</SectionTitle>
+          <div className="space-y-6">
+            <div className="flex items-start gap-4 p-6 bg-slate-800 rounded-2xl border border-slate-700">
+              <div className="bg-amber-500 text-slate-900 w-10 h-10 rounded-full flex items-center justify-center font-bold shrink-0 mt-1">1</div>
+              <div>
+                <h4 className="text-xl font-bold mb-2">オプチャ限定のクローズド募集</h4>
+                <p className="text-slate-400">この講座は外部には公開しません。ここにいる人だけが応募できる特別なチャンスです。</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 bg-slate-800 rounded-2xl border border-slate-700">
+              <div className="bg-amber-500 text-slate-900 w-10 h-10 rounded-full flex items-center justify-center font-bold shrink-0 mt-1">2</div>
+              <div>
+                <h4 className="text-xl font-bold mb-2">1期生の枠が最も少なく、かつ有利</h4>
+                <p className="text-slate-400">2期、3期と枠を増やす予定ですが、選考は回を重ねるごとに厳しくなります。早く動いた人が最大の恩恵を受けられます。</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4 p-6 bg-slate-800 rounded-2xl border border-slate-700">
+              <div className="bg-amber-500 text-slate-900 w-10 h-10 rounded-full flex items-center justify-center font-bold shrink-0 mt-1">3</div>
+              <div>
+                <h4 className="text-xl font-bold mb-2">選考基準は「熱量」のみ</h4>
+                <p className="text-slate-400">「この人と一緒にやりたい」と思わせてくれるアンケートを待っています。スキルや実績で判断することはありません。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section id="apply" className="py-24 bg-white text-center">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="bg-gradient-to-br from-amber-500 to-amber-600 p-12 md:p-20 rounded-[3rem] shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+              <div className="absolute -top-24 -left-24 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-slate-900 rounded-full blur-3xl"></div>
+            </div>
+            
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 mb-8 relative z-10 leading-tight">
+              次は、あなたが<br />変革を起こす番です。
+            </h2>
+            <p className="text-xl text-slate-900/80 mb-12 relative z-10 font-medium">
+              何度でも挑戦できます。<br />
+              しかし、チャンスを掴めるのは「今」動いた人だけ。
+            </p>
+            <div className="space-y-6 relative z-10">
+              <a 
+                href="#" 
+                className="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-12 py-6 rounded-2xl font-black text-2xl hover:bg-slate-800 transition-all shadow-xl hover:scale-105"
+              >
+                詳細・応募はこちら
+                <ArrowRight size={24} />
+              </a>
+              <p className="text-sm text-slate-900/60 font-bold mt-4 uppercase tracking-widest">
+                ※アンケート形式による選考を行います
+              </p>
+            </div>
+          </div>
+          <div className="mt-12 text-slate-500 italic">
+            「気になる」「挑戦してみたい」<br />
+            そう思った瞬間が、あなたの人生が動き出す時です。
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-12 bg-slate-50 border-t border-slate-200 text-center">
+        <div className="max-w-6xl mx-auto px-4 text-slate-400 text-sm">
+          <p>© 2024 FORTUNE LAB / Kenshipu All Rights Reserved.</p>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
