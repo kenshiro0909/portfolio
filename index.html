@@ -328,8 +328,6 @@
                 
                 window.addEventListener('mousemove', moveCursor);
                 
-                // Add event listeners to dynamically added elements by delegating or polling
-                // For React, we just attach to existing valid targets.
                 const attachListeners = () => {
                    const hoverables = document.querySelectorAll('a, button, .hover-target');
                    hoverables.forEach(el => {
@@ -340,7 +338,6 @@
                 
                 attachListeners();
                 
-                // Re-attach on DOM updates (simple fallback)
                 const observer = new MutationObserver(attachListeners);
                 observer.observe(document.body, { childList: true, subtree: true });
 
@@ -437,7 +434,6 @@
 
         /* --- Main App --- */
         const App = () => {
-            const [loading, setLoading] = useState(true);
 
             useEffect(() => {
                 const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
@@ -455,12 +451,10 @@
                 const elements = document.querySelectorAll('.fade-up, .fade-in, .fade-right, .fade-left, .zoom-in, .reveal-text, .img-mask-container');
                 elements.forEach(el => observer.observe(el));
 
-                setTimeout(() => setLoading(false), 1500);
-
                 document.documentElement.classList.add('dark');
 
                 return () => observer.disconnect();
-            }, [loading]);
+            }, []);
 
             const navItems = [
                 { label: 'MY CONTENTS', href: '#contents' },
@@ -486,15 +480,6 @@
             return (
                 <div className="relative bg-[#121212] min-h-screen">
                     <CustomCursor />
-                    
-                    {/* Loader */}
-                    <div className={`loader-overlay ${!loading ? 'hidden' : ''}`}>
-                        <div className="text-center">
-                            <h1 className="text-6xl md:text-8xl font-elegant italic text-white tracking-widest opacity-0 animate-[fadeInUp_1s_forwards]">
-                                Kenshiro
-                            </h1>
-                        </div>
-                    </div>
 
                     {/* Navigation */}
                     <nav className="fixed w-full z-40 top-0 left-0 mix-blend-difference text-white">
